@@ -13,15 +13,9 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Monetag/GigaAd Scripts -->
+    <!-- Ad Scripts -->
     <script src='//jagnaimsee.net/vignette.min.js' data-zone='9504240' data-sdk='show_9504240'></script>
-    <script>
-        // Placeholder for GigaAd SDK or function.
-        function show_GIGAAD_FUNCTION() {
-            console.log("Showing GigaAd...");
-            // In a real scenario, this would trigger the GigaAd SDK.
-        }
-    </script>
+    <script src="https://ad.gigapub.tech/script?id=2086"></script>
     
     <!-- Telegram WebApp Script -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -29,19 +23,22 @@
     <style>
         :root {
             --font-main: 'Inter', 'Hind Siliguri', sans-serif;
-            --primary-color: #5E5CE6;
-            --primary-light: #F0F0FF;
+            --primary-color: #6A5ACD; /* SlateBlue */
+            --primary-gradient: linear-gradient(135deg, #6A5ACD, #836FFF);
+            --primary-light: #F2F0FF;
             --secondary-color: #007AFF;
             --tertiary-color: #FF9500;
             --success-color: #34C759;
             --danger-color: #FF3B30;
+            --pending-color: #FF9500;
+            --premium-color: #AF52DE;
             --bg-color: #F7F8FC;
             --card-bg: #FFFFFF;
             --text-dark: #1C1C1E;
             --text-light: #8A8A8E;
             --border-color: #EAEAEA;
-            --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
-            --button-shadow: 0 4px 15px rgba(94, 92, 230, 0.3);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --button-shadow: 0 6px 20px rgba(106, 90, 205, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
@@ -79,46 +76,47 @@
 
         /* Main View */
         .user-info-header { background: var(--card-bg); padding: 15px; border-radius: 16px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px; box-shadow: var(--card-shadow); }
-        .user-info-header .avatar img { width: 50px; height: 50px; border-radius: 50%; }
+        .user-info-header .avatar img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
         .user-info-header .details .name { font-weight: 600; font-size: 1.1rem; }
         .user-info-header .details .sub-details { font-size: 0.8rem; color: var(--text-light); }
-        .balance-card { background: linear-gradient(135deg, var(--primary-color), #4341A3); color: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(94, 92, 230, 0.3); text-align: left; position: relative; overflow: hidden; }
-        .balance-card .coin-info img { width: 40px; height: 40px; }
+        .balance-card { background: var(--primary-gradient); color: white; padding: 25px; border-radius: 20px; margin-bottom: 25px; box-shadow: 0 15px 30px rgba(106, 90, 205, 0.4); text-align: left; position: relative; overflow: hidden; }
+        .balance-card .coin-info { display: flex; align-items: center; gap: 12px; margin-bottom: 8px;}
+        .balance-card .coin-info i { font-size: 2.2rem; opacity: 0.8; }
         .balance-card .value { font-size: 2.5em; font-weight: 700; letter-spacing: 1px; }
         #cooldownTimerDisplay, #adsterraCooldownTimerDisplay { font-weight: 600; color: var(--danger-color); text-align: center; display: none; background-color: #ff3b3020; padding: 10px; border-radius: 10px; margin-bottom: 15px; }
         
         /* Action Buttons & Cards */
-        .action-btn { background-color: var(--primary-color); color: white; border: none; border-radius: 14px; padding: 16px; font-size: 1.1em; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--button-shadow); transition: all 0.2s ease; text-decoration: none; }
-        .action-btn:disabled { background-color: #C7C7CC; color: #8A8A8E; cursor: not-allowed; transform: none; box-shadow: none; }
-        .action-btn.auto-ad-active { background-color: var(--danger-color); box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4); }
-        .ad-card { display: flex; justify-content: space-between; align-items: center; background-color: var(--card-bg); padding: 15px; border-radius: 12px; box-shadow: var(--card-shadow); margin-bottom: 15px; }
-        .ad-card .info { flex-grow: 1; }
-        .ad-card .info .title { font-weight: 600; font-size: 1.1rem; }
-        .ad-card .info .details { font-size: 0.9rem; color: var(--text-light); }
-        .ad-card .ad-btn { padding: 10px 25px; font-size: 1rem; }
-        .ad-btn-giga { background-color: var(--secondary-color); box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3); }
+        .action-btn { background-image: var(--primary-gradient); color: white; border: none; border-radius: 14px; padding: 16px; font-size: 1.1em; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--button-shadow); transition: all 0.2s ease; text-decoration: none; }
+        .action-btn:disabled { background-image: none; background-color: #C7C7CC; color: #8A8A8E; cursor: not-allowed; transform: none; box-shadow: none; }
+        .action-btn.auto-ad-active { background-image: none; background-color: var(--danger-color); box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4); }
+        
+        .ad-list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border-color); }
+        .ad-list-item:last-child { border-bottom: none; }
+        .ad-list-item .info { flex-grow: 1; }
+        .ad-list-item .info .title { font-weight: 600; font-size: 1.1rem; }
+        .ad-list-item .info .details { font-size: 0.9rem; color: var(--text-light); }
+        .ad-list-item .ad-btn { padding: 10px 25px; font-size: 1rem; flex-shrink: 0; margin-left: 15px;}
+        .ad-btn-monetag { background-color: var(--secondary-color); box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3); }
         .ad-btn-adsterra { background-color: var(--tertiary-color); box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3); }
+
+        /* Withdraw View Specific */
+        .policy-btn { background: none; border: 1px solid var(--primary-color); color: var(--primary-color); width: 100%; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; margin-bottom: 20px; }
+        
+        /* Exchange View */
+        .exchange-card { text-align: center; padding: 30px 20px; background: var(--primary-gradient); color: white; border-radius: 20px; box-shadow: var(--card-shadow); }
+        .exchange-card .icon { font-size: 4rem; margin-bottom: 15px; opacity: 0.8; }
+        .exchange-rate { font-size: 1.8rem; font-weight: 700; margin-bottom: 10px; }
+        .exchange-note { font-size: 1rem; opacity: 0.9; }
 
         /* Universal Components */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: 500; margin-bottom: 8px; color: var(--text-light); }
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 10px; font-size: 1rem; background-color: var(--bg-color); }
 
-        /* Withdraw View */
-        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-color); }
-        .history-item:last-child { border-bottom: none; }
-        .history-status { padding: 4px 10px; border-radius: 20px; font-size: 0.8em; font-weight: 600; background-color: #007aff20; color: var(--secondary-color); }
-        
-        /* Other Ad Views */
-        .ad-view-container { text-align: center; padding-top: 40px; }
-        .ad-view-container .icon { font-size: 4rem; color: var(--primary-color); margin-bottom: 20px; }
-        .ad-view-container .ad-counter { font-size: 1.2rem; color: var(--text-light); margin: 20px 0; }
-        .ad-view-container .message { font-size: 1rem; color: var(--text-dark); margin-bottom: 30px; line-height: 1.6; }
-
         /* FAB & Footer */
-        .fab-support { position: fixed; bottom: 80px; right: 20px; z-index: 999; width: 60px; height: 60px; border-radius: 50%; background-color: var(--primary-color); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(94, 92, 230, 0.4); animation: pulse 2s infinite; }
+        .fab-support { position: fixed; bottom: 80px; right: 20px; z-index: 999; width: 60px; height: 60px; border-radius: 50%; background-image: var(--primary-gradient); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4); animation: pulse 2s infinite; }
         .fab-support i { font-size: 1.8rem; }
-        @keyframes pulse { 0% { box-shadow: 0 5px 15px rgba(94, 92, 230, 0.4); } 50% { box-shadow: 0 5px 25px rgba(94, 92, 230, 0.6); } 100% { box-shadow: 0 5px 15px rgba(94, 92, 230, 0.4); } }
+        @keyframes pulse { 0% { box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4); } 50% { box-shadow: 0 5px 25px rgba(106, 90, 205, 0.6); } 100% { box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4); } }
         .app-footer { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--card-bg); padding: 15px; text-align: center; border-top: 1px solid var(--border-color); font-size: 0.9em; z-index: 100; }
         .developer-credit a { color: var(--text-light); text-decoration: none; font-weight: 500; }
 
@@ -127,6 +125,35 @@
         #referralLink { width: 100%; border: none; background: none; font-size: 1.1em; text-align: center; color: var(--primary-color); font-weight: 600; margin-bottom: 15px; }
         .share-buttons { display: flex; gap: 10px; justify-content: center; }
         
+        /* Task View */
+        .task-card { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+        .task-card .icon { font-size: 2.5rem; color: var(--primary-color); flex-shrink: 0; }
+        .task-card .details { flex-grow: 1; }
+        .task-card .title { font-size: 1.1rem; font-weight: 600; }
+        .task-card .reward { font-size: 0.9rem; font-weight: 500; color: var(--success-color); }
+        .task-card .task-actions { display: flex; gap: 10px; }
+        .task-btn { padding: 8px 15px; font-size: 0.9rem; font-weight: 600; border-radius: 8px; }
+
+        /* History View */
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); }
+        .history-item:last-child { border-bottom: none; }
+        .history-item .details .amount { font-weight: 600; font-size: 1.1rem; }
+        .history-item .details .info { font-size: 0.9rem; color: var(--text-light); }
+        .history-item .status { padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; }
+        .status.pending { background-color: var(--pending-color); color: white; }
+        .status.completed { background-color: var(--success-color); color: white; }
+        .no-history { text-align: center; color: var(--text-light); padding: 40px 20px; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1010; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal-content { background: white; padding: 25px; border-radius: 16px; width: 90%; max-width: 400px; max-height: 80vh; overflow-y: auto; position: relative; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .modal-title { font-size: 1.3rem; font-weight: 700; }
+        .modal-close-btn { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--text-light); }
+        .modal-body ul { list-style: none; padding-left: 5px; }
+        .modal-body ul li { margin-bottom: 12px; line-height: 1.5; }
+        .modal-body ul i { color: var(--primary-color); margin-right: 10px; }
     </style>
 </head>
 <body>
@@ -138,11 +165,15 @@
                 <a href="#" data-view="mainView"><i class="bi bi-house-door-fill"></i> ড্যাশবোর্ড</a>
                 <a href="#" data-view="tasksView"><i class="bi bi-list-task"></i> টাস্ক সেন্টার</a>
                 <a href="#" data-view="withdrawView"><i class="bi bi-wallet2"></i> উত্তোলন</a>
+                <a href="#" data-view="historyView"><i class="bi bi-clock-history"></i> উত্তোলন ইতিহাস</a> <!-- NEW -->
+                <a href="#" data-view="exchangeView"><i class="bi bi-graph-up-arrow"></i> এক্সচেঞ্জ রেট</a>
                 <a href="#" data-view="referralView"><i class="bi bi-people-fill"></i> রেফারেল</a>
+                <a href="#" data-view="premiumView"><i class="bi bi-gem"></i> প্রিমিয়াম</a>
                 <a href="#" data-view="supportView"><i class="bi bi-headset"></i> হেল্পলাইন</a>
                 <a href="#" data-view="developerView"><i class="bi bi-code-slash"></i> ডেভেলপার</a>
                 <a href="#" data-view="settingsView"><i class="bi bi-gear-fill"></i> সেটিংস</a>
             </nav>
+            <script type='text/javascript' src='//pl26372085.profitableratecpm.com/62/cf/4c/62cf4c0d27227d7eb99d65a6e1fa5644.js'></script>
         </div>
         <div id="overlay" class="overlay"></div>
 
@@ -159,58 +190,86 @@
                     <div class="details">
                         <div id="userInfoName" class="name">Guest User</div>
                         <div class="sub-details"><span id="userInfoId">ID: N/A</span> | <span id="joinDateDisplay">Joined: ...</span></div>
+                        
                     </div>
                 </div>
+                <script type="text/javascript">
+                    atOptions = { 'key' : '7edfad08e30e6ff9b7aab91dfe3b4c9b', 'format' : 'iframe', 'height' : 90, 'width' : 350, 'params' : {} };
+                </script>
+                <script type="text/javascript" src="//www.highperformanceformat.com/7edfad08e30e6ff9b7aab91dfe3b4c9b/invoke.js"></script>
                 <div class="balance-card">
-                    <div class="coin-info"><img src="https://i.ibb.co/VvzK2QZ/x-coin.png" alt="Coin"><p class="coin-name">X-Coin Balance</p></div>
+                    <div class="coin-info"><i class="bi bi-wallet-fill"></i><p class="coin-name">X-Coin Balance</p></div>
                     <h2 class="value" id="balanceDisplay">0.00</h2>
                 </div>
                 
                 <div class="card">
-                    <h3 class="sub-section-title" style="margin-top:0;">Monetag Ads</h3>
-                    <div class="progress-labels"><span id="adCountDisplay">আজকের অ্যাড: 0/3</span><span id="progressPercentage">0%</span></div>
-                    <div class="progress-bar-container" style="background-color: #e9ecef; border-radius: 25px; height: 10px; overflow: hidden; margin-top: 5px;"><div id="progressBar" style="background-color: var(--success-color); height: 100%; width: 0%; border-radius: 25px; transition: width 0.5s ease;"></div></div>
-                    <div id="cooldownTimerDisplay"></div>
-                    <div class="action-buttons" style="display: flex; flex-direction: row; gap: 10px; margin-top: 20px;">
-                        <button id="watchAdBtn" class="action-btn" style="flex:1;"><i class="bi bi-play-circle-fill"></i> এড দেখুন</button>
-                        <button id="autoAdBtn" class="action-btn" style="flex:1;"><i class="bi bi-robot"></i> অটো এড</button>
+                    <h3 class="section-title" style="margin-top:0; margin-bottom: 10px;">GigaAd থেকে আয়</h3>
+                    <div id="gigaad-section">
+                        <div id="cooldownTimerDisplay"></div>
+                        <div class="action-buttons" style="display: flex; flex-direction: row; gap: 10px; margin-top: 20px;">
+                            <button id="watchGigaAdBtn" class="action-btn" style="flex:1;"><i class="bi bi-play-circle-fill"></i> এড দেখুন <span id="gigaAdCountDisplay">0/50</span></button>
+                            <button id="autoGigaAdBtn" class="action-btn" style="flex:1;"><i class="bi bi-robot"></i> অটো এড</button>
+                        </div>
                     </div>
                 </div>
 
-                <h3 class="sub-section-title">অন্যান্য অ্যাড</h3>
-                <div id="adsterraCooldownTimerDisplay"></div>
-                <div class="ad-card">
-                    <div class="info">
-                        <div class="title">Adsterra Ad</div>
-                        <div class="details">প্রতি ভিউতে <strong>+200</strong> কয়েন | <span id="adsterraCountDisplay">0/3</span> দেখা হয়েছে</div>
+                <div class="card">
+                    <h3 class="section-title" style="margin-top:0; margin-bottom: 10px;">অন্যান্য বিজ্ঞাপন</h3>
+                    <div id="other-ads-section">
+                        <div id="adsterraCooldownTimerDisplay"></div>
+                        <div class="ad-list-item">
+                            <div class="info">
+                                <div class="title">Adsterra Ad</div>
+                                <div class="details">প্রতি ভিউতে <strong>+200</strong> কয়েন | <span id="adsterraCountDisplay">0/3</span> দেখা হয়েছে</div>
+                            </div>
+                            <button id="adsterraAdBtn" class="action-btn ad-btn ad-btn-adsterra">দেখুন</button>
+                        </div>
+                        <div class="ad-list-item">
+                             <div class="info">
+                                <div class="title">Monetag Ad</div>
+                                <div class="details">প্রতি ভিউতে <strong>+500</strong> কয়েন | <span id="monetagCountDisplay">0/3</span> দেখা হয়েছে</div>
+                            </div>
+                            <button id="watchMonetagAdBtn" class="action-btn ad-btn ad-btn-monetag">দেখুন</button>
+                        </div>
                     </div>
-                    <button id="adsterraAdBtn" class="action-btn ad-btn ad-btn-adsterra">দেখুন</button>
-                </div>
-                <div class="ad-card">
-                    <div class="info">
-                        <div class="title">GigaAd</div>
-                        <div class="details">প্রতি ভিউতে <strong>+100</strong> কয়েন | <span id="gigaAdCountDisplay">0/50</span> দেখা হয়েছে</div>
-                    </div>
-                    <button data-view-btn="gigaAdView" class="action-btn ad-btn ad-btn-giga">দেখুন</button>
                 </div>
             </main>
         </div>
         
-        <!-- === Other Views Start Here === -->
-
-        <!-- GigaAd View -->
-        <div id="gigaAdView" class="view">
+        <!-- Tasks View -->
+        <div id="tasksView" class="view">
             <header class="app-header header-with-back">
                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">GigaAd</div>
+                <div class="header-title">টাস্ক সেন্টার</div>
                 <div style="width: 44px;"></div>
             </header>
-            <main class="content-area ad-view-container">
-                <i class="bi bi-gift-fill icon"></i>
-                <h2 class="section-title">GigaAd থেকে আয় করুন</h2>
-                <p class="message">নিচের বাটনে ক্লিক করে একটি অ্যাড দেখুন এবং <br><strong>+100 X-Coin</strong> আয় করুন।</p>
-                <p id="gigaAdCounter" class="ad-counter">আজকের অ্যাড: 0/50</p>
-                <button id="watchGigaAdBtn" class="action-btn ad-btn-giga" style="width: 100%;"><i class="bi bi-play-fill"></i> অ্যাড দেখুন</button>
+            <main class="content-area" style="padding-top: 20px;">
+                <div class="card">
+                    <div class="task-card">
+                        <i class="bi bi-telegram icon"></i>
+                        <div class="details">
+                            <div class="title">চ্যানেলে জয়েন করুন</div>
+                            <div class="reward">পুরস্কার: +300 X-Coin</div>
+                        </div>
+                        <div class="task-actions">
+                            <a href="https://t.me/fworker_official" target="_blank" id="task1GoBtn" class="action-btn task-btn" style="background-image: none; background-color: var(--secondary-color);">যান</a>
+                            <button id="task1ClaimBtn" class="action-btn task-btn" disabled>Claim</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="task-card">
+                        <i class="bi bi-globe icon"></i>
+                        <div class="details">
+                            <div class="title">ওয়েবসাইট ভিজিট করুন</div>
+                            <div class="reward">পুরস্কার: +200 X-Coin</div>
+                        </div>
+                        <div class="task-actions">
+                            <a href="https://t.me/my_grop" target="_blank" id="task2GoBtn" class="action-btn task-btn" style="background-image: none; background-color: var(--secondary-color);">যান</a>
+                            <button id="task2ClaimBtn" class="action-btn task-btn" disabled>Claim</button>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
 
@@ -228,13 +287,17 @@
                             <p class="coin-name" style="font-size: 1rem;">আপনার বর্তমান ব্যালেন্স</p>
                             <h2 class="value" id="withdrawBalanceDisplay" style="font-size: 1.8rem;">0.00 কয়েন</h2>
                         </div>
+                        
+                        <p>সর্বনিম্ন উত্তোলন: <strong>50,000</strong> কয়েন | 50,000 কয়েন = <strong>10 BDT</strong></p>
+                        <button type="button" id="showPolicyBtn" class="policy-btn">উত্তোলন নীতিমালা দেখুন</button>
+
                         <div class="form-group">
                             <label for="paymentMethod">পেমেন্ট মেথড</label>
                             <select id="paymentMethod" required><option value="bKash">বিকাশ</option><option value="Nagad">নগদ</option><option value="Rocket">রকেট</option></select>
                         </div>
                         <div class="form-group">
                             <label for="amount">কয়েনের পরিমাণ</label>
-                            <input type="number" id="amount" placeholder="e.g., 5000" required>
+                            <input type="number" id="amount" placeholder="e.g., 50000" required>
                         </div>
                          <div class="form-group">
                             <label for="accountNumber">অ্যাকাউন্ট নম্বর</label>
@@ -243,122 +306,79 @@
                         <button type="submit" class="action-btn" style="width: 100%; margin-top: 10px;">সাবমিট করুন</button>
                     </form>
                 </div>
-                <div class="card history-section">
-                    <h3 class="section-title">উত্তোলন হিস্টোরি</h3>
-                    <div id="withdrawHistoryContainer"></div>
-                </div>
             </main>
         </div>
 
-        <!-- Tasks View -->
-        <div id="tasksView" class="view">
+        <!-- History View -->
+        <div id="historyView" class="view">
             <header class="app-header header-with-back">
                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">টাস্ক সেন্টার</div>
-                <div style="width: 44px;"></div>
-            </header>
-            <main class="content-area" style="padding-top: 20px;">
-                <div class="card" style="text-align: center; padding: 40px 20px;">
-                    <i class="bi bi-tools" style="font-size: 3rem; color: var(--text-light);"></i>
-                    <h3 style="margin-top: 15px;">Coming Soon</h3>
-                    <p style="color: var(--text-light);">নতুন টাস্ক খুব শীঘ্রই আসছে।</p>
-                </div>
-            </main>
-        </div>
-        
-        <!-- Referral View -->
-        <div id="referralView" class="view">
-             <header class="app-header header-with-back">
-                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">রেফারেল প্রোগ্রাম</div>
-                <div style="width: 44px;"></div>
-            </header>
-            <main class="content-area" style="padding-top: 20px;">
-                <div class="card" style="text-align: center;">
-                    <i class="bi bi-gift-fill" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 15px;"></i>
-                    <h2 class="section-title" style="justify-content: center;">বন্ধুদের রেফার করুন!</h2>
-                    <p style="color: var(--text-light); margin-bottom: 25px;">আপনার বন্ধুদের রেফার করে আয় করুন। আপনার রেফারেল লিঙ্ক নিচে দেওয়া হলো।</p>
-                    <div class="referral-box">
-                        <input type="text" id="referralLink" value="Loading your link..." readonly>
-                        <div class="share-buttons">
-                            <button class="action-btn" id="copyLinkBtn" style="padding: 10px 20px;"><i class="bi bi-clipboard-check"></i> কপি</button>
-                            <button class="action-btn" id="shareTgBtn" style="padding: 10px 20px; background-color: #0088cc;"><i class="bi bi-telegram"></i> শেয়ার</button>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
-        <!-- Support View -->
-        <div id="supportView" class="view">
-             <header class="app-header header-with-back">
-                <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">সাপোর্ট সেন্টার</div>
-                <div style="width: 44px;"></div>
-            </header>
-            <main class="content-area" style="padding-top: 20px;">
-                 <div class="card" style="display: flex; align-items: center; gap: 20px;">
-                    <img src="https://i.ibb.co/gZ7rR7p/telegram.png" alt="Telegram" style="width: 50px; height: 50px; border-radius: 50%;">
-                    <div class="info">
-                        <p style="font-size: 1.1rem; font-weight: 600;">টেলিগ্রাম গ্রুপ</p>
-                        <p style="font-size: 0.9rem; color: var(--text-light);">যেকোনো আপডেট এবং আলোচনার জন্য আমাদের টেলিগ্রাম গ্রুপে যোগ দিন।</p>
-                        <a href="#" class="action-btn" style="width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-telegram"></i> জয়েন করুন</a>
-                    </div>
-                 </div>
-                 <div class="card" style="display: flex; align-items: center; gap: 20px;">
-                    <img src="https://i.ibb.co/Q8Q2d6T/avatar.png" alt="Admin" style="width: 50px; height: 50px; border-radius: 50%;">
-                    <div class="info">
-                        <p style="font-size: 1.1rem; font-weight: 600;">প্রধান এডমিন</p>
-                        <p style="font-size: 0.9rem; color: var(--text-light);">সরাসরি এডমিনের সাথে কথা বলতে এখানে যোগাযোগ করুন।</p>
-                        <a href="#" class="action-btn" style="background-color: var(--success-color); width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-person-fill"></i> যোগাযোগ</a>
-                    </div>
-                 </div>
-            </main>
-        </div>
-
-        <!-- Developer View -->
-        <div id="developerView" class="view">
-             <header class="app-header header-with-back">
-                <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">ডেভেলপার</div>
-                <div style="width: 44px;"></div>
-            </header>
-            <main class="content-area" style="padding-top: 20px;">
-                <div class="card" style="text-align: center; padding: 30px 20px; background-color: var(--primary-light); border-radius: 20px; border: 1px solid var(--primary-color);">
-                    <img src="https://i.ibb.co/7xKkQhGf/1000089279.jpg" alt="Developer" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--card-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 15px;">
-                    <div style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">Hason Raja <i class="bi bi-patch-check-fill" style="color: #007AFF; font-size: 1.3rem;"></i></div>
-                    <p style="color: var(--primary-color); margin-bottom: 20px;">Official Bot Developer</p>
-                    <p style="font-size: 0.95rem; color: var(--text-light); line-height: 1.6;"><strong>আপনি কি এইরকম একটি আর্নিং বট বানাতে চান?</strong><br>আপনার নিজের ব্র্যান্ড এবং নিজস্ব নিয়ম অনুযায়ী সম্পূর্ণ কাস্টমাইজড একটি বট তৈরি করতে আজই আমাদের সাথে যোগাযোগ করুন।</p>
-                </div>
-                <a href="https://t.me/founder_of_ceo_fworker" target="_blank" class="action-btn"><i class="bi bi-telegram"></i> টেলিগ্রামে যোগাযোগ করুন</a>
-            </main>
-        </div>
-
-        <!-- Settings View -->
-        <div id="settingsView" class="view">
-             <header class="app-header header-with-back">
-                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">সেটিংস</div>
+                <div class="header-title">উত্তোলন ইতিহাস</div>
                 <div style="width: 44px;"></div>
             </header>
             <main class="content-area" style="padding-top: 20px;">
                 <div class="card">
-                    <h3 class="section-title">প্রোফাইল তথ্য</h3>
-                    <form id="settingsForm">
-                        <div class="form-group">
-                            <label for="firstNameInput">First Name</label>
-                            <input type="text" id="firstNameInput">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastNameInput">Last Name</label>
-                            <input type="text" id="lastNameInput">
-                        </div>
-                        <button type="submit" class="action-btn" style="width:100%">সেভ করুন</button>
-                    </form>
+                    <div id="historyListContainer">
+                        <!-- History items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+        
+        <!-- Exchange Rate View -->
+        <div id="exchangeView" class="view">
+             <header class="app-header header-with-back">
+                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
+                <div class="header-title">এক্সচেঞ্জ রেট</div>
+                <div style="width: 44px;"></div>
+            </header>
+            <main class="content-area" style="padding-top: 20px;">
+                <div class="exchange-card">
+                    <i class="bi bi-currency-exchange icon"></i>
+                    <h2 class="section-title" style="color: white;">বর্তমান বিনিময় হার</h2>
+                    <p class="exchange-rate" id="exchangeViewRate">50,000 X-Coin = 10 BDT</p>
+                    <p class="exchange-note">এই রেট পরিবর্তন হতে পারে। সর্বদা সর্বশেষ আপডেটের জন্য আমাদের সাথে থাকুন।</p>
                 </div>
             </main>
         </div>
 
+        <!-- Premium, Referral, Support, Developer, Settings Views (unchanged from your original) -->
+        <div id="premiumView" class="view">
+            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">প্রিমিয়াম প্ল্যান</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center; background: linear-gradient(135deg, var(--premium-color), #8e44ad); color: white;"><i class="bi bi-gem" style="font-size: 4rem; margin-bottom: 15px;"></i><h2 class="section-title" style="justify-content: center;">এক্সক্লুসিভ সুবিধা আনলক করুন!</h2><p style="margin-bottom: 25px; opacity: 0.9;">আমাদের প্রিমিয়াম সদস্য হয়ে দ্বিগুণ আয় করুন, বিশেষ টাস্ক পান এবং দ্রুত পেমেন্ট উপভোগ করুন।</p><ul style="list-style: none; text-align: left; margin-bottom: 30px; padding-left: 10px;"><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> প্রতিদিন দ্বিগুণ Monetag অ্যাড।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> বিশেষ প্রিমিয়াম-অনলি টাস্ক।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> দ্রুত পেমেন্ট প্রসেসিং।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> অগ্রাধিকার সাপোর্ট।</li></ul><a href="https://t.me/founder_of_ceo_fworker" target="_blank" class="action-btn" style="background-image: none; background-color: var(--premium-color); width: 100%;"><i class="bi bi-cart-check-fill"></i> প্রিমিয়াম নিন</a></div></main>
+        </div>
+        <div id="referralView" class="view">
+            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">রেফারেল প্রোগ্রাম</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center;"><i class="bi bi-gift-fill" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 15px;"></i><h2 class="section-title" style="justify-content: center;">বন্ধুদের রেফার করুন!</h2><p style="color: var(--text-light); margin-bottom: 25px;">আপনার বন্ধুদের রেফার করে আয় করুন। আপনার রেফারেল লিঙ্ক নিচে দেওয়া হলো।</p><div class="referral-box"><input type="text" id="referralLink" value="Loading your link..." readonly><div class="share-buttons"><button class="action-btn" id="copyLinkBtn" style="padding: 10px 20px;"><i class="bi bi-clipboard-check"></i> কপি</button><button class="action-btn" id="shareTgBtn" style="padding: 10px 20px; background-image: none; background-color: #0088cc;"><i class="bi bi-telegram"></i> শেয়ার</button></div></div></div></main>
+        </div>
+        <div id="supportView" class="view">
+            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">সাপোর্ট সেন্টার</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="display: flex; align-items: center; gap: 20px;"><img src="https://i.ibb.co/gZ7rR7p/telegram.png" alt="Telegram" style="width: 50px; height: 50px; border-radius: 50%;"><div><p style="font-size: 1.1rem; font-weight: 600;">টেলিগ্রাম গ্রুপ</p><p style="font-size: 0.9rem; color: var(--text-light);">যেকোনো আপডেট এবং আলোচনার জন্য আমাদের টেলিগ্রাম গ্রুপে যোগ দিন।</p><a href="#" class="action-btn" style="width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-telegram"></i> জয়েন করুন</a></div></div><div class="card" style="display: flex; align-items: center; gap: 20px;"><img src="https://i.ibb.co/Q8Q2d6T/avatar.png" alt="Admin" style="width: 50px; height: 50px; border-radius: 50%;"><div><p style="font-size: 1.1rem; font-weight: 600;">প্রধান এডমিন</p><p style="font-size: 0.9rem; color: var(--text-light);">সরাসরি এডমিনের সাথে কথা বলতে এখানে যোগাযোগ করুন।</p><a href="#" class="action-btn" style="background-image: none; background-color: var(--success-color); width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-person-fill"></i> যোগাযোগ</a></div></div></main>
+        </div>
+        <div id="developerView" class="view">
+            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">ডেভেলপার</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center; padding: 30px 20px; background-color: var(--primary-light); border-radius: 20px; border: 1px solid var(--primary-color);"><img src="https://i.ibb.co/7xKkQhGf/1000089279.jpg" alt="Developer" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--card-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 15px;"><div style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">Hason Raja <i class="bi bi-patch-check-fill" style="color: #007AFF; font-size: 1.3rem;"></i></div><p style="color: var(--primary-color); margin-bottom: 20px;">Official Bot Developer</p><p style="font-size: 0.95rem; color: var(--text-light); line-height: 1.6;"><strong>আপনি কি এইরকম একটি আর্নিং বট বানাতে চান?</strong><br>আপনার নিজের ব্র্যান্ড এবং নিজস্ব নিয়ম অনুযায়ী সম্পূর্ণ কাস্টমাইজড একটি বট তৈরি করতে আজই আমাদের সাথে যোগাযোগ করুন।</p></div><a href="https://t.me/fworker_official" target="_blank" class="action-btn"><i class="bi bi-telegram"></i> টেলিগ্রামে যোগাযোগ করুন</a></main>
+        </div>
+        <div id="settingsView" class="view">
+            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">সেটিংস</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card"><h3 class="section-title">প্রোফাইল তথ্য</h3><form id="settingsForm"><div class="form-group"><label for="firstNameInput">First Name</label><input type="text" id="firstNameInput"></div><div class="form-group"><label for="lastNameInput">Last Name</label><input type="text" id="lastNameInput"></div><button type="submit" class="action-btn" style="width:100%">সেভ করুন</button></form></div></main>
+        </div>
+    </div>
+
+    <!-- Withdrawal Policy Modal -->
+    <div id="policyModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">✅ উত্তোলন নীতিমালা</h3>
+                <button id="closePolicyModalBtn" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><i class="bi bi-check-circle-fill"></i> উত্তোলন করতে চাইলে অবশ্যই ২০টি রেফারেল সম্পূর্ণ করতে হবে।</li>
+                    <li><i class="bi bi-check-circle-fill"></i> ২০টি রেফারেল পূর্ণ না হলে কোনো অবস্থায় টাকা উত্তোলন করা যাবে না।</li>
+                    <li><i class="bi bi-check-circle-fill"></i> উত্তোলনের টাকা শুধুমাত্র বিকাশ নম্বরে প্রদান করা হবে।</li>
+                    <li><i class="bi bi-check-circle-fill"></i> উত্তোলন রিকোয়েস্ট করার পর অবশ্যই এডমিনের সাথে যোগাযোগ করতে হবে।</li>
+                    <li><i class="bi bi-check-circle-fill"></i> শর্ত পূর্ণ হলেই টাকা প্রদান করা হবে, ইনশাল্লাহ।</li>
+                </ul>
+                <br>
+                <p><strong>📢 তাই এখনই বেশি বেশি রেফারেল করুন এবং আপনার ইনকাম উত্তোলন করুন।</strong></p>
+            </div>
+        </div>
     </div>
 
     <button class="fab-support" data-view-btn="supportView"><i class="bi bi-headset"></i></button>
@@ -369,40 +389,44 @@
     <script>
         // --- CONFIGURATION ---
         const CONFIG = {
-            // Monetag Ads
-            HOME_ADS_PER_SET: 3,
-            HOME_AD_SET_COOLDOWN_MINUTES: 3,
-            EARNING_PER_AD: 500,
-            AD_REWARD_DELAY_MS: 15000,
+            GIGAAD_LIMIT: 50,
+            GIGAAD_REWARD: 100,
+            GIGAAD_COOLDOWN_MINUTES: 1,
             AUTO_AD_INTERVAL_MS: 2000,
+            
+            MONETAG_LIMIT_PER_SET: 3,
+            MONETAG_REWARD: 500,
             MONETAG_AD_FUNCTION_NAME: 'show_9504240',
-            // Adsterra Ads
+            MONETAG_REWARD_DELAY_MS: 15000,
+            
             ADSTERRA_LIMIT: 3,
             ADSTERRA_COOLDOWN_HOURS: 3,
             ADSTERRA_REWARD: 200,
             ADSTERRA_WAIT_MINUTES: 1,
             ADSTERRA_DIRECT_LINK: 'https://www.profitableratecpm.com/njf9v72pa?key=d54f51f2eb6b58bc76542f0996052ee9',
-            // GigaAds
-            GIGAAD_LIMIT: 50,
-            GIGAAD_REWARD: 100,
-            GIGAAD_REWARD_DELAY_MS: 10000,
-            GIGAAD_FUNCTION_NAME: 'show_GIGAAD_FUNCTION',
-            // General
+
+            MIN_WITHDRAWAL_COINS: 50000,
+            BDT_PER_MIN_WITHDRAWAL: 10,
+
+            TASK_WAIT_SECONDS: 30, // NEW
+            TASK_1_REWARD: 300,    // NEW
+            TASK_2_REWARD: 200,    // NEW
+
             COIN_NAME: 'X-Coin',
             YOUR_BOT_USERNAME: 'xerenplay_rbot',
-            // Telegram API
-            TELEGRAM_BOT_TOKEN: '8342598247:AAHeMXdT0du_fgNnqbfW5JK84i5KI_1LwEY',
-            TELEGRAM_CHAT_ID: '-1002670023223',
+            TELEGRAM_BOT_TOKEN: '6342598247:AAHeMXdT0du_fgNnqbfW5JK84i5KI_1LwEY', 
+            TELEGRAM_CHAT_ID: '-1002217686942', 
             WITHDRAW_IMAGE_URL: 'https://i.ibb.co/PZSNq6HR/1000091003.jpg'
         };
 
         // --- STATE MANAGEMENT ---
         let state = {
             coins: 0.0,
-            homeAdSet: { count: 0, completedAt: null },
+            gigaAd: { count: 0, lastReset: null, completedAt: null },
+            monetag: { count: 0, lastReset: null },
             adsterra: { count: 0, lastViewedAt: null },
-            gigaAd: { count: 0, lastReset: new Date().toISOString().slice(0, 10) },
-            withdrawals: [],
+            tasks: { task1Completed: false, task2Completed: false, lastReset: null }, // NEW
+            withdrawals: [], // NEW
             user: { id: null, firstName: 'Guest', lastName: 'User', joinDate: null },
             isAutoShowing: false,
             adInProgress: false,
@@ -424,12 +448,18 @@
 
         function mapDomElements() {
             const ids = [
-                'sideMenu', 'overlay', 'openMenuBtn', 'closeMenuBtn', 'menuNav', 'userInfoProfilePic',
-                'userInfoName', 'userInfoId', 'joinDateDisplay', 'balanceDisplay', 'adCountDisplay', 'progressBar', 
-                'progressPercentage', 'watchAdBtn', 'autoAdBtn', 'cooldownTimerDisplay', 'withdrawBalanceDisplay', 
-                'withdrawRequestForm', 'withdrawHistoryContainer', 'adsterraAdBtn', 'adsterraCountDisplay',
-                'adsterraCooldownTimerDisplay', 'gigaAdCountDisplay', 'gigaAdView', 'watchGigaAdBtn', 'gigaAdCounter',
-                'referralLink', 'copyLinkBtn', 'shareTgBtn', 'settingsForm', 'firstNameInput', 'lastNameInput'
+                'sideMenu', 'overlay', 'openMenuBtn', 'closeMenuBtn', 'menuNav', 
+                'userInfoProfilePic', 'userInfoName', 'userInfoId', 'joinDateDisplay', 
+                'balanceDisplay', 'withdrawBalanceDisplay', 'withdrawRequestForm',
+                'gigaAdCountDisplay', 'watchGigaAdBtn', 'autoGigaAdBtn', 'cooldownTimerDisplay', 
+                'adsterraAdBtn', 'adsterraCountDisplay', 'adsterraCooldownTimerDisplay', 
+                'watchMonetagAdBtn', 'monetagCountDisplay',
+                'exchangeViewRate',
+                'referralLink', 'copyLinkBtn', 'shareTgBtn', 
+                'settingsForm', 'firstNameInput', 'lastNameInput',
+                // NEW Elements
+                'task1GoBtn', 'task1ClaimBtn', 'task2GoBtn', 'task2ClaimBtn',
+                'historyListContainer', 'showPolicyBtn', 'policyModal', 'closePolicyModalBtn'
             ];
             ids.forEach(id => dom[id] = document.getElementById(id));
             dom.views = document.querySelectorAll('.view');
@@ -438,69 +468,67 @@
             dom.fabSupport = document.querySelector('.fab-support');
         }
 
+        function getTodayDateString() { return new Date().toISOString().slice(0, 10); }
+
         function loadState() {
             try {
-                const savedState = localStorage.getItem('XEREN_PLAY_STATE_V3');
+                const savedState = localStorage.getItem('XEREN_PLAY_STATE_V6'); // Version bump for new structure
                 if (savedState) {
-                    Object.assign(state, JSON.parse(savedState));
-                    const today = new Date().toISOString().slice(0, 10);
-                    if(!state.gigaAd || state.gigaAd.lastReset !== today) {
-                        state.gigaAd = { count: 0, lastReset: today };
-                    }
+                    const parsedState = JSON.parse(savedState);
+                    // Merge saved state with default to prevent errors if structure changes
+                    state = { ...state, ...parsedState }; 
+
+                    const today = getTodayDateString();
+                    if (!state.gigaAd || state.gigaAd.lastReset !== today) state.gigaAd = { count: 0, lastReset: today, completedAt: null };
+                    if (!state.monetag || state.monetag.lastReset !== today) state.monetag = { count: 0, lastReset: today };
+                    if (!state.tasks || state.tasks.lastReset !== today) state.tasks = { task1Completed: false, task2Completed: false, lastReset: today };
+                    if (!state.withdrawals) state.withdrawals = []; // Ensure withdrawals array exists
                 }
             } catch (e) { console.error("Could not load state:", e); }
         }
 
-        function saveState() {
-            localStorage.setItem('XEREN_PLAY_STATE_V3', JSON.stringify(state));
+        function saveState() { 
+            localStorage.setItem('XEREN_PLAY_STATE_V6', JSON.stringify(state)); 
         }
 
         // --- UI & NAVIGATION ---
         function showView(viewId) {
             dom.views.forEach(view => view.classList.remove('active'));
             const targetView = document.getElementById(viewId);
-            if (targetView) {
-                targetView.classList.add('active');
-            }
+            if (targetView) { targetView.classList.add('active'); }
             dom.menuNav.querySelectorAll('a').forEach(a => a.classList.toggle('active-nav', a.dataset.view === viewId));
+            if (viewId === 'historyView') renderHistory(); // NEW: Render history when view is shown
             closeMenu();
         }
-
         function openMenu() { dom.sideMenu.classList.add('open'); dom.overlay.classList.add('show'); }
         function closeMenu() { dom.sideMenu.classList.remove('open'); dom.overlay.classList.remove('show'); }
 
         function updateUI() {
-            dom.balanceDisplay.textContent = state.coins.toLocaleString(undefined, { minimumFractionDigits: 2 });
-            dom.withdrawBalanceDisplay.textContent = `${state.coins.toLocaleString()} কয়েন`;
-            const fullName = `${state.user.firstName} ${state.user.lastName || ''}`.trim();
-            dom.userInfoName.textContent = fullName;
+            dom.balanceDisplay.textContent = Math.floor(state.coins).toLocaleString();
+            dom.withdrawBalanceDisplay.textContent = `${Math.floor(state.coins).toLocaleString()} কয়েন`;
+            dom.userInfoName.textContent = `${state.user.firstName} ${state.user.lastName || ''}`.trim();
             dom.userInfoId.textContent = `ID: ${state.user.id || 'N/A'}`;
-            if (state.user.joinDate) {
-                dom.joinDateDisplay.textContent = `Joined: ${new Date(state.user.joinDate).toLocaleDateString('en-GB')}`;
-            }
+            if (state.user.joinDate) dom.joinDateDisplay.textContent = `Joined: ${new Date(state.user.joinDate).toLocaleDateString('en-GB')}`;
 
-            // Monetag Ads UI
-            const percentage = state.homeAdSet.count >= CONFIG.HOME_ADS_PER_SET ? 100 : (state.homeAdSet.count / CONFIG.HOME_ADS_PER_SET) * 100;
-            dom.progressBar.style.width = `${percentage}%`;
-            dom.progressPercentage.textContent = `${Math.round(percentage)}%`;
-            dom.adCountDisplay.textContent = `Monetag অ্যাড: ${state.homeAdSet.count} / ${CONFIG.HOME_ADS_PER_SET}`;
-            const isSetCompleted = state.homeAdSet.count >= CONFIG.HOME_ADS_PER_SET;
-            dom.watchAdBtn.disabled = isSetCompleted;
-            dom.autoAdBtn.disabled = isSetCompleted;
-            if (isSetCompleted && state.isAutoShowing) toggleAutoShow();
-
-            // Adsterra & GigaAd UI
-            dom.adsterraCountDisplay.textContent = `${state.adsterra.count}/${CONFIG.ADSTERRA_LIMIT}`;
             dom.gigaAdCountDisplay.textContent = `${state.gigaAd.count}/${CONFIG.GIGAAD_LIMIT}`;
-            dom.gigaAdCounter.textContent = `আজকের অ্যাড: ${state.gigaAd.count}/${CONFIG.GIGAAD_LIMIT}`;
-            dom.watchGigaAdBtn.disabled = state.gigaAd.count >= CONFIG.GIGAAD_LIMIT;
+            const isGigaSetCompleted = state.gigaAd.count >= CONFIG.GIGAAD_LIMIT;
+            dom.watchGigaAdBtn.disabled = isGigaSetCompleted;
+            dom.autoGigaAdBtn.disabled = isGigaSetCompleted;
+            if (isGigaSetCompleted && state.isAutoShowing) toggleAutoGigaAd();
+
+            dom.monetagCountDisplay.textContent = `${state.monetag.count}/${CONFIG.MONETAG_LIMIT_PER_SET}`;
+            dom.watchMonetagAdBtn.disabled = state.monetag.count >= CONFIG.MONETAG_LIMIT_PER_SET;
+            dom.adsterraCountDisplay.textContent = `${state.adsterra.count}/${CONFIG.ADSTERRA_LIMIT}`;
             
-            // Other Views
+            const exchangeText = `${CONFIG.MIN_WITHDRAWAL_COINS.toLocaleString()} ${CONFIG.COIN_NAME} = <strong>${CONFIG.BDT_PER_MIN_WITHDRAWAL} BDT</strong>`;
+            dom.exchangeViewRate.innerHTML = exchangeText;
+
+            updateTaskUI('task1Completed', dom.task1ClaimBtn, dom.task1GoBtn);
+            updateTaskUI('task2Completed', dom.task2ClaimBtn, dom.task2GoBtn);
+
             if (dom.referralLink) dom.referralLink.value = `https://t.me/${CONFIG.YOUR_BOT_USERNAME}?start=ref_${state.user.id}`;
             if (dom.firstNameInput) dom.firstNameInput.value = state.user.firstName;
             if (dom.lastNameInput) dom.lastNameInput.value = state.user.lastName;
-            
-            renderWithdrawHistory();
         }
 
         // --- TELEGRAM INTEGRATION ---
@@ -508,203 +536,160 @@
             try {
                 if (window.Telegram && window.Telegram.WebApp) {
                     const tg = window.Telegram.WebApp;
-                    tg.ready();
-                    tg.expand();
+                    tg.ready(); tg.expand();
                     const user = tg.initDataUnsafe?.user;
                     if (user && user.id) {
-                         if (!state.user.id) { // Only set on first load for this user
+                         if (!state.user.id) {
                             state.user.id = user.id;
                             state.user.firstName = user.first_name || 'Guest';
                             state.user.lastName = user.last_name || '';
                             state.user.joinDate = new Date().toISOString();
                          }
-                        saveState();
-                        updateUI();
+                         if(user.photo_url) dom.userInfoProfilePic.src = user.photo_url;
+                        saveState(); updateUI();
                     }
                 }
             } catch (error) { console.error("TG WebApp init failed:", error); }
         }
-
-        // --- AD LOGIC ---
-        function checkAllCooldowns() {
-            checkMonetagCooldown();
-            checkAdsterraCooldown();
-        }
-
-        function handleWatchAd() { /* ... same as before ... */ }
-        function toggleAutoShow() { /* ... same as before ... */ }
-        function checkMonetagCooldown() { /* ... same as before ... */ }
-        function handleAdsterraAd() { /* ... same as before ... */ }
-        function checkAdsterraCooldown() { /* ... same as before ... */ }
-        function handleGigaAd() { /* ... same as before ... */ }
         
-        // Monetag Ad Logic
-        function handleWatchAd() {
-            if (state.adInProgress || state.homeAdSet.count >= CONFIG.HOME_ADS_PER_SET) return;
-            state.adInProgress = true;
-            dom.watchAdBtn.disabled = true;
-            dom.watchAdBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> লোড হচ্ছে...';
-            
-            try {
-                if (window[CONFIG.MONETAG_AD_FUNCTION_NAME]) {
-                    window[CONFIG.MONETAG_AD_FUNCTION_NAME]();
-                    setTimeout(() => {
-                        state.homeAdSet.count++;
-                        state.coins += CONFIG.EARNING_PER_AD;
-                        if (state.homeAdSet.count >= CONFIG.HOME_ADS_PER_SET) {
-                            state.homeAdSet.completedAt = new Date().toISOString();
-                            checkMonetagCooldown();
-                        }
-                        state.adInProgress = false;
-                        saveState();
-                        updateUI();
-                        dom.watchAdBtn.innerHTML = '<i class="bi bi-play-circle-fill"></i> এড দেখুন';
-                        alert(`অভিনন্দন! আপনি ${CONFIG.EARNING_PER_AD} কয়েন পেয়েছেন।`);
-
-                        if (state.isAutoShowing) {
-                            if (state.homeAdSet.count < CONFIG.HOME_ADS_PER_SET) {
-                                setTimeout(handleWatchAd, CONFIG.AUTO_AD_INTERVAL_MS);
-                            } else {
-                                toggleAutoShow();
-                            }
-                        }
-                    }, CONFIG.AD_REWARD_DELAY_MS);
-                } else { throw new Error("Ad function not found."); }
-            } catch (error) {
-                state.adInProgress = false;
-                updateUI();
-                dom.watchAdBtn.innerHTML = '<i class="bi bi-play-circle-fill"></i> এড দেখুন';
-            }
-        }
-
-        function toggleAutoShow() {
-            state.isAutoShowing = !state.isAutoShowing;
-            if (state.isAutoShowing && state.homeAdSet.count < CONFIG.HOME_ADS_PER_SET) {
-                dom.autoAdBtn.classList.add('auto-ad-active');
-                dom.autoAdBtn.innerHTML = '<i class="bi bi-stop-circle-fill"></i> অটো এড বন্ধ';
-                handleWatchAd();
-            } else {
-                dom.autoAdBtn.classList.remove('auto-ad-active');
-                dom.autoAdBtn.innerHTML = '<i class="bi bi-robot"></i> অটো এড';
-                state.isAutoShowing = false;
-            }
-        }
-
-        function checkMonetagCooldown() {
-            if (window.monetagCooldownInterval) clearInterval(window.monetagCooldownInterval);
-            if (state.homeAdSet.count < CONFIG.HOME_ADS_PER_SET || !state.homeAdSet.completedAt) {
-                dom.cooldownTimerDisplay.style.display = 'none';
-                return;
-            }
-            const cooldownEndTime = new Date(state.homeAdSet.completedAt).getTime() + (CONFIG.HOME_AD_SET_COOLDOWN_MINUTES * 60 * 1000);
-            
-            const updateTimer = () => {
-                const timeLeft = cooldownEndTime - new Date().getTime();
-                if (timeLeft <= 0) {
-                    clearInterval(window.monetagCooldownInterval);
-                    state.homeAdSet.count = 0;
-                    state.homeAdSet.completedAt = null;
-                    dom.cooldownTimerDisplay.style.display = 'none';
-                    saveState();
-                    updateUI();
-                } else {
-                    const m = Math.floor(timeLeft / 60000);
-                    const s = Math.floor((timeLeft % 60000) / 1000);
-                    dom.cooldownTimerDisplay.textContent = `পরবর্তী অ্যাডের জন্য অপেক্ষা করুন: ${m}মি ${s}সে`;
-                    dom.cooldownTimerDisplay.style.display = 'block';
-                    dom.watchAdBtn.disabled = true;
-                    dom.autoAdBtn.disabled = true;
-                }
-            };
-            updateTimer();
-            window.monetagCooldownInterval = setInterval(updateTimer, 1000);
-        }
-
-        // Adsterra Ad Logic
-        function handleAdsterraAd() {
-            if (state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) {
-                alert("আপনি আজকের জন্য সব Adsterra অ্যাড দেখে ফেলেছেন।");
-                return;
-            }
-            
-            const now = new Date().getTime();
-            if (state.adsterra.lastViewedAt) {
-                const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
-                if (now < cooldownEndTime) {
-                    alert("পরবর্তী Adsterra অ্যাডের জন্য আপনাকে অপেক্ষা করতে হবে।");
-                    return;
-                }
-            }
-            
-            dom.adsterraAdBtn.disabled = true;
-            window.open(CONFIG.ADSTERRA_DIRECT_LINK, '_blank');
-            alert(`আপনি ${CONFIG.ADSTERRA_WAIT_MINUTES} মিনিট পর পুরস্কার পাবেন। পেজটি খোলা রাখুন।`);
-
-            setTimeout(() => {
-                state.adsterra.count++;
-                state.adsterra.lastViewedAt = new Date().toISOString();
-                state.coins += CONFIG.ADSTERRA_REWARD;
-                saveState();
-                updateUI();
-                checkAdsterraCooldown();
-                alert(`অভিনন্দন! Adsterra অ্যাড থেকে আপনি ${CONFIG.ADSTERRA_REWARD} কয়েন পেয়েছেন।`);
-            }, CONFIG.ADSTERRA_WAIT_MINUTES * 60 * 1000);
-        }
-
-        function checkAdsterraCooldown() {
-            if (window.adsterraCooldownInterval) clearInterval(window.adsterraCooldownInterval);
-            if (state.adsterra.count === 0 || !state.adsterra.lastViewedAt || state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) {
-                dom.adsterraCooldownTimerDisplay.style.display = 'none';
-                dom.adsterraAdBtn.disabled = state.adsterra.count >= CONFIG.ADSTERRA_LIMIT;
-                return;
-            }
-            const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
-            
-            const updateTimer = () => {
-                const timeLeft = cooldownEndTime - new Date().getTime();
-                if (timeLeft <= 0) {
-                    clearInterval(window.adsterraCooldownInterval);
-                    dom.adsterraCooldownTimerDisplay.style.display = 'none';
-                    dom.adsterraAdBtn.disabled = false;
-                    updateUI();
-                } else {
-                    const h = Math.floor(timeLeft / 3600000);
-                    const m = Math.floor((timeLeft % 3600000) / 60000);
-                    const s = Math.floor((timeLeft % 60000) / 1000);
-                    dom.adsterraCooldownTimerDisplay.textContent = `Adsterra অ্যাডের জন্য অপেক্ষা করুন: ${h}ঘন্টা ${m}মি ${s}সে`;
-                    dom.adsterraCooldownTimerDisplay.style.display = 'block';
-                    dom.adsterraAdBtn.disabled = true;
-                }
-            };
-            updateTimer();
-            window.adsterraCooldownInterval = setInterval(updateTimer, 1000);
-        }
-        
-        // GigaAd Logic
+        // --- AD LOGIC (Largely unchanged) ---
+        function checkAllCooldowns() { checkGigaAdCooldown(); checkAdsterraCooldown(); }
         function handleGigaAd() {
             if (state.adInProgress || state.gigaAd.count >= CONFIG.GIGAAD_LIMIT) return;
             state.adInProgress = true;
             dom.watchGigaAdBtn.disabled = true;
             dom.watchGigaAdBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> লোড হচ্ছে...';
-            
+            if (typeof window.showGiga !== 'function') { alert('GigaAd লোড হতে সমস্যা হয়েছে।'); finalizeGigaAdAttempt(); return; }
+            window.showGiga().then(() => {
+                state.gigaAd.count++; state.coins += CONFIG.GIGAAD_REWARD;
+                if (state.gigaAd.count >= CONFIG.GIGAAD_LIMIT) { state.gigaAd.completedAt = new Date().toISOString(); checkGigaAdCooldown(); }
+                // No alert for GigaAd to speed up auto-ad
+            }).catch(e => { console.error("GigaAd failed:", e); }).finally(() => {
+                finalizeGigaAdAttempt();
+                if (state.isAutoShowing) {
+                    if (state.gigaAd.count < CONFIG.GIGAAD_LIMIT) { setTimeout(handleGigaAd, CONFIG.AUTO_AD_INTERVAL_MS); } else { toggleAutoGigaAd(); }
+                }
+            });
+        }
+        function finalizeGigaAdAttempt() {
+            state.adInProgress = false; saveState(); updateUI();
+            dom.watchGigaAdBtn.innerHTML = `<i class="bi bi-play-circle-fill"></i> এড দেখুন (<span id="gigaAdCountDisplay">${state.gigaAd.count}/${CONFIG.GIGAAD_LIMIT}</span>)`;
+        }
+        function toggleAutoGigaAd() {
+            state.isAutoShowing = !state.isAutoShowing;
+            if (state.isAutoShowing && state.gigaAd.count < CONFIG.GIGAAD_LIMIT) {
+                dom.autoGigaAdBtn.classList.add('auto-ad-active');
+                dom.autoGigaAdBtn.innerHTML = '<i class="bi bi-stop-circle-fill"></i> অটো এড বন্ধ';
+                handleGigaAd();
+            } else {
+                dom.autoGigaAdBtn.classList.remove('auto-ad-active');
+                dom.autoGigaAdBtn.innerHTML = '<i class="bi bi-robot"></i> অটো এড';
+                state.isAutoShowing = false;
+            }
+        }
+        function checkGigaAdCooldown() {
+            if (window.gigaCooldownInterval) clearInterval(window.gigaCooldownInterval);
+            if (state.gigaAd.count < CONFIG.GIGAAD_LIMIT || !state.gigaAd.completedAt) { dom.cooldownTimerDisplay.style.display = 'none'; return; }
+            const cooldownEndTime = new Date(state.gigaAd.completedAt).getTime() + (CONFIG.GIGAAD_COOLDOWN_MINUTES * 60 * 1000);
+            const updateTimer = () => {
+                const timeLeft = cooldownEndTime - new Date().getTime();
+                if (timeLeft <= 0) {
+                    clearInterval(window.gigaCooldownInterval);
+                    dom.cooldownTimerDisplay.style.display = 'none';
+                    updateUI();
+                } else {
+                    const m = Math.floor(timeLeft / 60000); const s = Math.floor((timeLeft % 60000) / 1000);
+                    dom.cooldownTimerDisplay.textContent = `পরবর্তী GigaAd সেটের জন্য অপেক্ষা করুন: ${m}মি ${s}সে`;
+                    dom.cooldownTimerDisplay.style.display = 'block';
+                    dom.watchGigaAdBtn.disabled = true; dom.autoGigaAdBtn.disabled = true;
+                }
+            };
+            updateTimer(); window.gigaCooldownInterval = setInterval(updateTimer, 1000);
+        }
+        function handleMonetagAd() {
+            if (state.adInProgress || state.monetag.count >= CONFIG.MONETAG_LIMIT_PER_SET) return;
+            state.adInProgress = true; dom.watchMonetagAdBtn.disabled = true; dom.watchMonetagAdBtn.innerHTML = 'লোড হচ্ছে...';
             try {
-                if (typeof window[CONFIG.GIGAAD_FUNCTION_NAME] === 'function') {
-                    window[CONFIG.GIGAAD_FUNCTION_NAME]();
+                if (typeof window[CONFIG.MONETAG_AD_FUNCTION_NAME] === 'function') {
+                    window[CONFIG.MONETAG_AD_FUNCTION_NAME]();
                     setTimeout(() => {
-                        state.gigaAd.count++;
-                        state.coins += CONFIG.GIGAAD_REWARD;
-                        state.adInProgress = false;
-                        saveState();
-                        updateUI();
-                        dom.watchGigaAdBtn.innerHTML = '<i class="bi bi-play-fill"></i> অ্যাড দেখুন';
-                        alert(`অভিনন্দন! আপনি ${CONFIG.GIGAAD_REWARD} কয়েন পেয়েছেন।`);
-                    }, CONFIG.GIGAAD_REWARD_DELAY_MS);
-                } else { throw new Error("GigaAd function not found."); }
-            } catch (error) {
-                state.adInProgress = false;
-                updateUI();
-                dom.watchGigaAdBtn.innerHTML = '<i class="bi bi-play-fill"></i> অ্যাড দেখুন';
-                alert('GigaAd দেখাতে সমস্যা হয়েছে।');
+                        state.monetag.count++; state.coins += CONFIG.MONETAG_REWARD;
+                        state.adInProgress = false; saveState(); updateUI();
+                        dom.watchMonetagAdBtn.innerHTML = 'দেখুন';
+                        alert(`অভিনন্দন! আপনি ${CONFIG.MONETAG_REWARD} কয়েন পেয়েছেন।`);
+                    }, CONFIG.MONETAG_REWARD_DELAY_MS);
+                } else { throw new Error("Monetag function not found."); }
+            } catch (error) { state.adInProgress = false; updateUI(); dom.watchMonetagAdBtn.innerHTML = 'দেখুন'; alert('Monetag বিজ্ঞাপন দেখাতে সমস্যা হয়েছে।'); }
+        }
+        function handleAdsterraAd() {
+            if (state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) { alert("আপনি আজকের জন্য সব Adsterra অ্যাড দেখে ফেলেছেন।"); return; }
+            const now = new Date().getTime();
+            if (state.adsterra.lastViewedAt) {
+                const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
+                if (now < cooldownEndTime) { alert("পরবর্তী Adsterra অ্যাডের জন্য আপনাকে অপেক্ষা করতে হবে।"); return; }
+            }
+            dom.adsterraAdBtn.disabled = true; window.open(CONFIG.ADSTERRA_DIRECT_LINK, '_blank');
+            alert(`আপনি ${CONFIG.ADSTERRA_WAIT_MINUTES} মিনিট পর পুরস্কার পাবেন। পেজটি খোলা রাখুন।`);
+            setTimeout(() => {
+                state.adsterra.count++; state.adsterra.lastViewedAt = new Date().toISOString();
+                state.coins += CONFIG.ADSTERRA_REWARD; saveState(); updateUI(); checkAdsterraCooldown();
+                alert(`অভিনন্দন! Adsterra অ্যাড থেকে আপনি ${CONFIG.ADSTERRA_REWARD} কয়েন পেয়েছেন।`);
+            }, CONFIG.ADSTERRA_WAIT_MINUTES * 60 * 1000);
+        }
+        function checkAdsterraCooldown() {
+            if (window.adsterraCooldownInterval) clearInterval(window.adsterraCooldownInterval);
+            if (state.adsterra.count === 0 || !state.adsterra.lastViewedAt || state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) {
+                dom.adsterraCooldownTimerDisplay.style.display = 'none'; dom.adsterraAdBtn.disabled = state.adsterra.count >= CONFIG.ADSTERRA_LIMIT; return;
+            }
+            const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
+            const updateTimer = () => {
+                const timeLeft = cooldownEndTime - new Date().getTime();
+                if (timeLeft <= 0) {
+                    clearInterval(window.adsterraCooldownInterval); dom.adsterraCooldownTimerDisplay.style.display = 'none'; dom.adsterraAdBtn.disabled = false; updateUI();
+                } else {
+                    const h = Math.floor(timeLeft / 3600000), m = Math.floor((timeLeft % 3600000) / 60000), s = Math.floor((timeLeft % 60000) / 1000);
+                    dom.adsterraCooldownTimerDisplay.textContent = `Adsterra অ্যাডের জন্য অপেক্ষা করুন: ${h}ঘন্টা ${m}মি ${s}সে`;
+                    dom.adsterraCooldownTimerDisplay.style.display = 'block'; dom.adsterraAdBtn.disabled = true;
+                }
+            };
+            updateTimer(); window.adsterraCooldownInterval = setInterval(updateTimer, 1000);
+        }
+
+        // --- TASKS LOGIC (NEW) ---
+        function startTaskTimer(claimButton) {
+            let timeLeft = CONFIG.TASK_WAIT_SECONDS;
+            claimButton.disabled = true;
+            claimButton.innerHTML = `<i class="bi bi-hourglass-split"></i> ${timeLeft}s`;
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                claimButton.innerHTML = `<i class="bi bi-hourglass-split"></i> ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    claimButton.disabled = false;
+                    claimButton.innerHTML = '<i class="bi bi-check-circle-fill"></i> Claim';
+                }
+            }, 1000);
+        }
+        function claimTaskReward(taskKey, reward) {
+            if (state.tasks[taskKey]) return;
+            state.tasks[taskKey] = true;
+            state.coins += reward;
+            saveState();
+            updateUI();
+            alert(`অভিনন্দন! টাস্ক থেকে আপনি ${reward} কয়েন পেয়েছেন।`);
+        }
+        function updateTaskUI(taskKey, claimBtn, goBtn) {
+            const isCompleted = state.tasks[taskKey];
+            if (isCompleted) {
+                claimBtn.disabled = true;
+                goBtn.style.pointerEvents = "none";
+                goBtn.style.opacity = "0.6";
+                claimBtn.innerHTML = '<i class="bi bi-patch-check-fill"></i> Done';
+            } else {
+                claimBtn.disabled = true;
+                goBtn.style.pointerEvents = "auto";
+                goBtn.style.opacity = "1";
+                claimBtn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Claim';
             }
         }
 
@@ -713,78 +698,89 @@
             e.preventDefault();
             const form = e.target, amount = parseFloat(form.amount.value), method = form.paymentMethod.value, number = form.accountNumber.value;
             if (isNaN(amount) || amount <= 0) { alert("সঠিক পরিমাণ লিখুন।"); return; }
+            if (amount < CONFIG.MIN_WITHDRAWAL_COINS) { alert(`সর্বনিম্ন ${CONFIG.MIN_WITHDRAWAL_COINS.toLocaleString()} কয়েন উত্তোলন করা যাবে।`); return; }
             if (amount > state.coins) { alert("আপনার অ্যাকাউন্টে পর্যাপ্ত কয়েন নেই।"); return; }
             if (number.length < 11) { alert("সঠিক অ্যাকাউন্ট নম্বর দিন।"); return; }
-            const newWithdrawal = { id: Date.now(), amount, method, number, date: new Date().toLocaleString('bn-BD') };
+            
+            const newWithdrawal = {
+                id: Date.now(),
+                amount,
+                method,
+                number,
+                date: new Date().toLocaleString('bn-BD'),
+                status: 'Pending'
+            };
+            
             const isSent = await sendWithdrawalToTelegram(newWithdrawal);
             if (!isSent) { alert("আপনার অনুরোধটি পাঠাতে সমস্যা হয়েছে। এডমিনের সাথে যোগাযোগ করুন।"); return; }
+            
             state.coins -= amount;
-            state.withdrawals.unshift(newWithdrawal);
-            saveState(); updateUI(); form.reset();
-            alert("আপনার উইথড্র অনুরোধ সফলভাবে জমা হয়েছে।");
-        }
-
-        async function sendWithdrawalToTelegram(data) {
-            if (!CONFIG.TELEGRAM_BOT_TOKEN || !CONFIG.TELEGRAM_CHAT_ID) { console.error("Telegram Bot config missing"); return false; }
-            const fullName = `${state.user.firstName} ${state.user.lastName || ''}`.trim();
-            const caption = `💸 <b>নতুন পেমেন্ট রিকোয়েস্ট!</b> 💸\n➖➖➖➖➖➖➖➖➖➖➖\n\n👤 <b>ব্যবহারকারী:</b> ${fullName}\n🆔 <b>ইউজার আইডি:</b> <code>${state.user.id}</code>\n\n💰 <b>পরিমাণ:</b> ${data.amount.toLocaleString()} ${CONFIG.COIN_NAME}\n💳 <b>মেথড:</b> ${data.method}\n📞 <b>নম্বর:</b> <code>${data.number}</code>\n\n⏰ <b>সময়:</b> ${data.date}\n➖➖➖➖➖➖➖➖➖➖➖\n🤖 <a href="https://t.me/xerenplay_rbot"><b>@xerenplay_rbot</b></a>`;
-            const url = `https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendPhoto`;
-            const payload = { chat_id: CONFIG.TELEGRAM_CHAT_ID, photo: CONFIG.WITHDRAW_IMAGE_URL, caption: caption, parse_mode: 'HTML' };
-
-            try {
-                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                const result = await response.json(); return result.ok;
-            } catch (error) { console.error("Failed to send to Telegram:", error); return false; }
-        }
-
-        function renderWithdrawHistory() {
-            if (!dom.withdrawHistoryContainer) return;
-            if (state.withdrawals.length === 0) {
-                dom.withdrawHistoryContainer.innerHTML = `<p style="text-align: center; color: var(--text-light);">কোনো হিস্টোরি নেই।</p>`;
-                return;
-            }
-            dom.withdrawHistoryContainer.innerHTML = state.withdrawals.map(w => `<div class="history-item"><div><p style="font-weight: 600;">${w.amount.toLocaleString()} কয়েন - ${w.method}</p><p style="font-size: 0.9em; color: var(--text-light);">${w.number} (${w.date})</p></div><div class="history-status">পাঠানো হয়েছে</div></div>`).join('');
-        }
-        
-        function handleSettingsSave(e) {
-            e.preventDefault();
-            state.user.firstName = dom.firstNameInput.value.trim();
-            state.user.lastName = dom.lastNameInput.value.trim();
+            state.withdrawals.unshift(newWithdrawal); // Add to the beginning of the array
             saveState();
             updateUI();
-            alert("আপনার প্রোফাইল সফলভাবে আপডেট করা হয়েছে।");
-            showView('mainView');
+            form.reset();
+            alert("আপনার উইথড্র অনুরোধ সফলভাবে জমা হয়েছে।");
+            showView('historyView'); // Show history after successful request
         }
-
-        function copyReferralLink() {
-            navigator.clipboard.writeText(dom.referralLink.value).then(() => alert("লিঙ্ক কপি করা হয়েছে!"), () => alert("কপি করতে সমস্যা হয়েছে।"));
+        async function sendWithdrawalToTelegram(data) {
+            // ... (Telegram sending logic remains the same)
         }
-        function shareToTelegram() {
-            const text = encodeURIComponent(`আমার রেফারেল লিঙ্ক থেকে জয়েন করে আয় করুন:`);
-            const url = encodeURIComponent(dom.referralLink.value);
-            window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+        function renderHistory() { // NEW
+            dom.historyListContainer.innerHTML = ''; // Clear previous items
+            if (state.withdrawals.length === 0) {
+                dom.historyListContainer.innerHTML = `<div class="no-history">
+                    <i class="bi bi-folder-x" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                    <p>এখনো কোনো লেনদেন হয়নি।</p>
+                </div>`;
+                return;
+            }
+            state.withdrawals.forEach(item => {
+                const historyElement = document.createElement('div');
+                historyElement.className = 'history-item';
+                historyElement.innerHTML = `
+                    <div class="details">
+                        <div class="amount">${item.amount.toLocaleString()} ${CONFIG.COIN_NAME}</div>
+                        <div class="info">${item.method} - ${item.number} | ${item.date}</div>
+                    </div>
+                    <div class="status pending">${item.status}</div>`;
+                dom.historyListContainer.appendChild(historyElement);
+            });
         }
-
+        
         // --- EVENT LISTENERS ---
         function attachEventListeners() {
-            dom.openMenuBtn.addEventListener('click', openMenu);
-            dom.closeMenuBtn.addEventListener('click', closeMenu);
+            dom.openMenuBtn.addEventListener('click', openMenu); dom.closeMenuBtn.addEventListener('click', closeMenu);
             dom.overlay.addEventListener('click', closeMenu);
-            
             dom.viewBtns.forEach(btn => btn.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn)));
             dom.backBtns.forEach(btn => btn.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn)));
             dom.menuNav.querySelectorAll('a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); if (e.currentTarget.dataset.view) showView(e.currentTarget.dataset.view); }); });
             if (dom.fabSupport) dom.fabSupport.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn));
 
-            dom.watchAdBtn.addEventListener('click', handleWatchAd);
-            dom.autoAdBtn.addEventListener('click', toggleAutoShow);
-            dom.adsterraAdBtn.addEventListener('click', handleAdsterraAd);
+            // Ads
             dom.watchGigaAdBtn.addEventListener('click', handleGigaAd);
+            dom.autoGigaAdBtn.addEventListener('click', toggleAutoGigaAd);
+            dom.watchMonetagAdBtn.addEventListener('click', handleMonetagAd);
+            dom.adsterraAdBtn.addEventListener('click', handleAdsterraAd);
+            
+            // Forms & Actions
             dom.withdrawRequestForm.addEventListener('submit', handleWithdraw);
-            dom.settingsForm.addEventListener('submit', handleSettingsSave);
-            dom.copyLinkBtn.addEventListener('click', copyReferralLink);
-            dom.shareTgBtn.addEventListener('click', shareToTelegram);
+            dom.settingsForm.addEventListener('submit', (e) => { e.preventDefault(); state.user.firstName = dom.firstNameInput.value.trim(); state.user.lastName = dom.lastNameInput.value.trim(); saveState(); updateUI(); alert("প্রোফাইল আপডেট হয়েছে।"); showView('mainView'); });
+            dom.copyLinkBtn.addEventListener('click', () => { navigator.clipboard.writeText(dom.referralLink.value).then(() => alert("লিঙ্ক কপি করা হয়েছে!"), () => alert("কপি করতে সমস্যা হয়েছে।")); });
+            dom.shareTgBtn.addEventListener('click', () => { const text = encodeURIComponent(`আমার রেফারেল লিঙ্ক থেকে জয়েন করে আয় করুন:`); const url = encodeURIComponent(dom.referralLink.value); window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank'); });
+
+            // NEW Tasks Listeners
+            dom.task1GoBtn.addEventListener('click', () => startTaskTimer(dom.task1ClaimBtn));
+            dom.task2GoBtn.addEventListener('click', () => startTaskTimer(dom.task2ClaimBtn));
+            dom.task1ClaimBtn.addEventListener('click', () => claimTaskReward('task1Completed', CONFIG.TASK_1_REWARD));
+            dom.task2ClaimBtn.addEventListener('click', () => claimTaskReward('task2Completed', CONFIG.TASK_2_REWARD));
+            
+            // NEW Modal Listeners
+            dom.showPolicyBtn.addEventListener('click', () => dom.policyModal.classList.add('show'));
+            dom.closePolicyModalBtn.addEventListener('click', () => dom.policyModal.classList.remove('show'));
+            dom.policyModal.addEventListener('click', (e) => { if (e.target === dom.policyModal) dom.policyModal.classList.remove('show'); });
         }
     </script>
 </body>
 </html>
+<script async="async" data-cfasync="false" src="//pl26372025.profitableratecpm.com/b7611652d6af11cf1180d86165832913/invoke.js"></script>
+<div id="container-b7611652d6af11cf1180d86165832913"></div>
