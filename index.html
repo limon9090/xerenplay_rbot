@@ -49,20 +49,8 @@
         .view.active { display: block; animation: fadeIn 0.4s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Side Menu */
-        .side-menu { position: fixed; top: 0; left: -100%; width: 280px; height: 100%; background-color: var(--card-bg); box-shadow: 4px 0 20px rgba(0,0,0,0.1); z-index: 1001; display: flex; flex-direction: column; transition: left 0.3s ease-in-out; }
-        .side-menu.open { left: 0; }
-        .menu-header { padding: 15px 20px; text-align: right; }
-        .close-menu-btn { background: none; border: none; cursor: pointer; font-size: 2.5rem; color: var(--danger-color); }
-        .menu-nav { padding: 20px 15px; flex-grow: 1; overflow-y: auto; margin-top: 15px; }
-        .menu-nav a { display: flex; align-items: center; padding: 13px 15px; text-decoration: none; border-radius: 10px; margin-bottom: 8px; font-weight: 500; color: var(--text-dark); transition: all 0.2s; }
-        .menu-nav a:hover, .menu-nav a.active-nav { background-color: var(--primary-light); color: var(--primary-color); transform: translateX(5px); }
-        .menu-nav a i { font-size: 1.2rem; margin-right: 15px; width: 24px; text-align: center;}
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease-in-out, visibility 0.3s; }
-        .overlay.show { opacity: 1; visibility: visible; }
-        
-        /* General Header */
-        .app-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; }
+        /* Header */
+        .app-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); }
         .header-btn { background: none; border: none; cursor: pointer; font-size: 1.8rem; color: var(--text-dark); width: 44px; height: 44px; }
         .header-title-group { display: flex; align-items: center; gap: 10px; }
         .header-title-group img { height: 30px; }
@@ -120,20 +108,6 @@
         .app-footer { position: fixed; bottom: 0; left: 0; right: 0; background-color: var(--card-bg); padding: 15px; text-align: center; border-top: 1px solid var(--border-color); font-size: 0.9em; z-index: 100; }
         .developer-credit a { color: var(--text-light); text-decoration: none; font-weight: 500; }
 
-        /* Referral view */
-        .referral-box { border: 2px dashed var(--primary-color); padding: 20px; border-radius: 12px; text-align: center; background-color: var(--primary-light); }
-        #referralLink { width: 100%; border: none; background: none; font-size: 1.1em; text-align: center; color: var(--primary-color); font-weight: 600; margin-bottom: 15px; }
-        .share-buttons { display: flex; gap: 10px; justify-content: center; }
-        
-        /* Task View */
-        .task-card { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-        .task-card .icon { font-size: 2.5rem; color: var(--primary-color); flex-shrink: 0; }
-        .task-card .details { flex-grow: 1; }
-        .task-card .title { font-size: 1.1rem; font-weight: 600; }
-        .task-card .reward { font-size: 0.9rem; font-weight: 500; color: var(--success-color); }
-        .task-card .task-actions { display: flex; gap: 10px; }
-        .task-btn { padding: 8px 15px; font-size: 0.9rem; font-weight: 600; border-radius: 8px; }
-
         /* History View */
         .history-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); }
         .history-item:last-child { border-bottom: none; }
@@ -154,35 +128,21 @@
         .modal-body ul { list-style: none; padding-left: 5px; }
         .modal-body ul li { margin-bottom: 12px; line-height: 1.5; }
         .modal-body ul i { color: var(--primary-color); margin-right: 10px; }
+        
+        /* Navigation Bar */
+        .nav-bar { position: fixed; bottom: 60px; left: 0; right: 0; background-color: var(--card-bg); display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid var(--border-color); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: var(--text-light); font-size: 0.8rem; }
+        .nav-item.active { color: var(--primary-color); }
+        .nav-item i { font-size: 1.5rem; margin-bottom: 5px; }
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- Side Menu -->
-        <div id="sideMenu" class="side-menu">
-            <div class="menu-header"><button id="closeMenuBtn" class="close-menu-btn">&times;</button></div>
-            <nav class="menu-nav" id="menuNav">
-                <a href="#" data-view="mainView"><i class="bi bi-house-door-fill"></i> ড্যাশবোর্ড</a>
-                <a href="#" data-view="tasksView"><i class="bi bi-list-task"></i> টাস্ক সেন্টার</a>
-                <a href="#" data-view="withdrawView"><i class="bi bi-wallet2"></i> উত্তোলন</a>
-                <a href="#" data-view="historyView"><i class="bi bi-clock-history"></i> উত্তোলন ইতিহাস</a> <!-- NEW -->
-                <a href="#" data-view="exchangeView"><i class="bi bi-graph-up-arrow"></i> এক্সচেঞ্জ রেট</a>
-                <a href="#" data-view="referralView"><i class="bi bi-people-fill"></i> রেফারেল</a>
-                <a href="#" data-view="premiumView"><i class="bi bi-gem"></i> প্রিমিয়াম</a>
-                <a href="#" data-view="supportView"><i class="bi bi-headset"></i> হেল্পলাইন</a>
-                <a href="#" data-view="developerView"><i class="bi bi-code-slash"></i> ডেভেলপার</a>
-                <a href="#" data-view="settingsView"><i class="bi bi-gear-fill"></i> সেটিংস</a>
-            </nav>
-            <script type='text/javascript' src='//pl26372085.profitableratecpm.com/62/cf/4c/62cf4c0d27227d7eb99d65a6e1fa5644.js'></script>
-        </div>
-        <div id="overlay" class="overlay"></div>
-
         <!-- Main Dashboard View -->
         <div id="mainView" class="view active">
             <header class="app-header">
-                <button id="openMenuBtn" class="header-btn"><i class="bi bi-list"></i></button>
                 <div class="header-title-group"><img src="https://i.ibb.co/WvZM7FHw/1000091009.png" alt="Logo"><div class="header-title">X-Eren Play</div></div>
-                <div style="width: 44px;"></div>
+                <button id="supportBtn" class="header-btn" data-view-btn="supportView"><i class="bi bi-headset"></i></button>
             </header>
             <main class="content-area">
                 <div class="user-info-header">
@@ -190,20 +150,21 @@
                     <div class="details">
                         <div id="userInfoName" class="name">Guest User</div>
                         <div class="sub-details"><span id="userInfoId">ID: N/A</span> | <span id="joinDateDisplay">Joined: ...</span></div>
-                        
                     </div>
                 </div>
+                
                 <script type="text/javascript">
                     atOptions = { 'key' : '7edfad08e30e6ff9b7aab91dfe3b4c9b', 'format' : 'iframe', 'height' : 90, 'width' : 350, 'params' : {} };
                 </script>
                 <script type="text/javascript" src="//www.highperformanceformat.com/7edfad08e30e6ff9b7aab91dfe3b4c9b/invoke.js"></script>
+                
                 <div class="balance-card">
                     <div class="coin-info"><i class="bi bi-wallet-fill"></i><p class="coin-name">X-Coin Balance</p></div>
                     <h2 class="value" id="balanceDisplay">0.00</h2>
                 </div>
                 
                 <div class="card">
-                    <h3 class="section-title" style="margin-top:0; margin-bottom: 10px;">GigaAd থেকে আয়</h3>
+                    <h3 class="section-title" style="margin-top:0; margin-bottom: 10px;">Ads Master</h3>
                     <div id="gigaad-section">
                         <div id="cooldownTimerDisplay"></div>
                         <div class="action-buttons" style="display: flex; flex-direction: row; gap: 10px; margin-top: 20px;">
@@ -219,15 +180,15 @@
                         <div id="adsterraCooldownTimerDisplay"></div>
                         <div class="ad-list-item">
                             <div class="info">
-                                <div class="title">Adsterra Ad</div>
+                                <div class="title">Ads King</div>
                                 <div class="details">প্রতি ভিউতে <strong>+200</strong> কয়েন | <span id="adsterraCountDisplay">0/3</span> দেখা হয়েছে</div>
                             </div>
                             <button id="adsterraAdBtn" class="action-btn ad-btn ad-btn-adsterra">দেখুন</button>
                         </div>
                         <div class="ad-list-item">
                              <div class="info">
-                                <div class="title">Monetag Ad</div>
-                                <div class="details">প্রতি ভিউতে <strong>+250</strong> কয়েন | <span id="monetagCountDisplay">0/3</span> দেখা হয়েছে</div>
+                                <div class="title">Ads Beginner</div>
+                                <div class="details">প্রতি ভিউতে <strong>+50</strong> কয়েন | <span id="monetagCountDisplay">0/3</span> দেখা হয়েছে</div>
                             </div>
                             <button id="watchMonetagAdBtn" class="action-btn ad-btn ad-btn-monetag">দেখুন</button>
                         </div>
@@ -236,43 +197,6 @@
             </main>
         </div>
         
-        <!-- Tasks View -->
-        <div id="tasksView" class="view">
-            <header class="app-header header-with-back">
-                <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">টাস্ক সেন্টার</div>
-                <div style="width: 44px;"></div>
-            </header>
-            <main class="content-area" style="padding-top: 20px;">
-                <div class="card">
-                    <div class="task-card">
-                        <i class="bi bi-telegram icon"></i>
-                        <div class="details">
-                            <div class="title">চ্যানেলে জয়েন করুন</div>
-                            <div class="reward">পুরস্কার: +300 X-Coin</div>
-                        </div>
-                        <div class="task-actions">
-                            <a href="https://t.me/fworker_official" target="_blank" id="task1GoBtn" class="action-btn task-btn" style="background-image: none; background-color: var(--secondary-color);">যান</a>
-                            <button id="task1ClaimBtn" class="action-btn task-btn" disabled>Claim</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="task-card">
-                        <i class="bi bi-globe icon"></i>
-                        <div class="details">
-                            <div class="title">ওয়েবসাইট ভিজিট করুন</div>
-                            <div class="reward">পুরস্কার: +200 X-Coin</div>
-                        </div>
-                        <div class="task-actions">
-                            <a href="https://t.me/my_grop" target="_blank" id="task2GoBtn" class="action-btn task-btn" style="background-image: none; background-color: var(--secondary-color);">যান</a>
-                            <button id="task2ClaimBtn" class="action-btn task-btn" disabled>Claim</button>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-
         <!-- Withdraw View -->
         <div id="withdrawView" class="view">
             <header class="app-header header-with-back">
@@ -288,7 +212,7 @@
                             <h2 class="value" id="withdrawBalanceDisplay" style="font-size: 1.8rem;">0.00 কয়েন</h2>
                         </div>
                         
-                        <p>সর্বনিম্ন উত্তোলন: <strong>50,000</strong> কয়েন | 50,000 কয়েন = <strong>10 BDT</strong></p>
+                        <p>সর্বনিম্ন উত্তোলন: <strong>10000</strong> কয়েন | 10000 কয়েন = <strong>100 BDT</strong></p>
                         <button type="button" id="showPolicyBtn" class="policy-btn">উত্তোলন নীতিমালা দেখুন</button>
 
                         <div class="form-group">
@@ -325,39 +249,52 @@
             </main>
         </div>
         
-        <!-- Exchange Rate View -->
-        <div id="exchangeView" class="view">
-             <header class="app-header header-with-back">
-                 <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
-                <div class="header-title">এক্সচেঞ্জ রেট</div>
+        <!-- Support View -->
+        <div id="supportView" class="view">
+            <header class="app-header header-with-back">
+                <button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button>
+                <div class="header-title">সাপোর্ট সেন্টার</div>
                 <div style="width: 44px;"></div>
             </header>
             <main class="content-area" style="padding-top: 20px;">
-                <div class="exchange-card">
-                    <i class="bi bi-currency-exchange icon"></i>
-                    <h2 class="section-title" style="color: white;">বর্তমান বিনিময় হার</h2>
-                    <p class="exchange-rate" id="exchangeViewRate">50,000 X-Coin = 10 BDT</p>
-                    <p class="exchange-note">এই রেট পরিবর্তন হতে পারে। সর্বদা সর্বশেষ আপডেটের জন্য আমাদের সাথে থাকুন।</p>
+                <div class="card" style="display: flex; align-items: center; gap: 20px;">
+                    <img src="https://i.ibb.co/gZ7rR7p/telegram.png" alt="Telegram" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <div>
+                        <p style="font-size: 1.1rem; font-weight: 600;">টেলিগ্রাম গ্রুপ</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">যেকোনো আপডেট এবং আলোচনার জন্য আমাদের টেলিগ্রাম গ্রুপে যোগ দিন।</p>
+                        <a href="https://t.me/fworker_official" target="_blank" class="action-btn" style="width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-telegram"></i> জয়েন করুন</a>
+                    </div>
+                </div>
+                <div class="card" style="display: flex; align-items: center; gap: 20px;">
+                    <img src="https://i.ibb.co/Q8Q2d6T/avatar.png" alt="Admin" style="width: 50px; height: 50px; border-radius: 50%;">
+                    <div>
+                        <p style="font-size: 1.1rem; font-weight: 600;">প্রধান এডমিন</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light);">সরাসরি এডমিনের সাথে কথা বলতে এখানে যোগাযোগ করুন।</p>
+                        <a href="https://t.me/founder_of_ceo_fworker" target="_blank" class="action-btn" style="background-image: none; background-color: var(--success-color); width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-person-fill"></i> যোগাযোগ</a>
+                    </div>
                 </div>
             </main>
         </div>
+    </div>
 
-        <!-- Premium, Referral, Support, Developer, Settings Views (unchanged from your original) -->
-        <div id="premiumView" class="view">
-            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">প্রিমিয়াম প্ল্যান</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center; background: linear-gradient(135deg, var(--premium-color), #8e44ad); color: white;"><i class="bi bi-gem" style="font-size: 4rem; margin-bottom: 15px;"></i><h2 class="section-title" style="justify-content: center;">এক্সক্লুসিভ সুবিধা আনলক করুন!</h2><p style="margin-bottom: 25px; opacity: 0.9;">আমাদের প্রিমিয়াম সদস্য হয়ে দ্বিগুণ আয় করুন, বিশেষ টাস্ক পান এবং দ্রুত পেমেন্ট উপভোগ করুন।</p><ul style="list-style: none; text-align: left; margin-bottom: 30px; padding-left: 10px;"><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> প্রতিদিন দ্বিগুণ Monetag অ্যাড।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> বিশেষ প্রিমিয়াম-অনলি টাস্ক।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> দ্রুত পেমেন্ট প্রসেসিং।</li><li style="margin-bottom: 10px;"><i class="bi bi-check-circle-fill"></i> অগ্রাধিকার সাপোর্ট।</li></ul><a href="https://t.me/founder_of_ceo_fworker" target="_blank" class="action-btn" style="background-image: none; background-color: var(--premium-color); width: 100%;"><i class="bi bi-cart-check-fill"></i> প্রিমিয়াম নিন</a></div></main>
-        </div>
-        <div id="referralView" class="view">
-            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">রেফারেল প্রোগ্রাম</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center;"><i class="bi bi-gift-fill" style="font-size: 4rem; color: var(--primary-color); margin-bottom: 15px;"></i><h2 class="section-title" style="justify-content: center;">বন্ধুদের রেফার করুন!</h2><p style="color: var(--text-light); margin-bottom: 25px;">আপনার বন্ধুদের রেফার করে আয় করুন। আপনার রেফারেল লিঙ্ক নিচে দেওয়া হলো।</p><div class="referral-box"><input type="text" id="referralLink" value="Loading your link..." readonly><div class="share-buttons"><button class="action-btn" id="copyLinkBtn" style="padding: 10px 20px;"><i class="bi bi-clipboard-check"></i> কপি</button><button class="action-btn" id="shareTgBtn" style="padding: 10px 20px; background-image: none; background-color: #0088cc;"><i class="bi bi-telegram"></i> শেয়ার</button></div></div></div></main>
-        </div>
-        <div id="supportView" class="view">
-            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">সাপোর্ট সেন্টার</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="display: flex; align-items: center; gap: 20px;"><img src="https://i.ibb.co/gZ7rR7p/telegram.png" alt="Telegram" style="width: 50px; height: 50px; border-radius: 50%;"><div><p style="font-size: 1.1rem; font-weight: 600;">টেলিগ্রাম গ্রুপ</p><p style="font-size: 0.9rem; color: var(--text-light);">যেকোনো আপডেট এবং আলোচনার জন্য আমাদের টেলিগ্রাম গ্রুপে যোগ দিন।</p><a href="#" class="action-btn" style="width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-telegram"></i> জয়েন করুন</a></div></div><div class="card" style="display: flex; align-items: center; gap: 20px;"><img src="https://i.ibb.co/Q8Q2d6T/avatar.png" alt="Admin" style="width: 50px; height: 50px; border-radius: 50%;"><div><p style="font-size: 1.1rem; font-weight: 600;">প্রধান এডমিন</p><p style="font-size: 0.9rem; color: var(--text-light);">সরাসরি এডমিনের সাথে কথা বলতে এখানে যোগাযোগ করুন।</p><a href="#" class="action-btn" style="background-image: none; background-color: var(--success-color); width: fit-content; padding: 8px 20px; font-size: 0.9rem; margin-top: 10px;"><i class="bi bi-person-fill"></i> যোগাযোগ</a></div></div></main>
-        </div>
-        <div id="developerView" class="view">
-            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">ডেভেলপার</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card" style="text-align: center; padding: 30px 20px; background-color: var(--primary-light); border-radius: 20px; border: 1px solid var(--primary-color);"><img src="https://i.ibb.co/7xKkQhGf/1000089279.jpg" alt="Developer" style="width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--card-bg); box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 15px;"><div style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;">Hason Raja <i class="bi bi-patch-check-fill" style="color: #007AFF; font-size: 1.3rem;"></i></div><p style="color: var(--primary-color); margin-bottom: 20px;">Official Bot Developer</p><p style="font-size: 0.95rem; color: var(--text-light); line-height: 1.6;"><strong>আপনি কি এইরকম একটি আর্নিং বট বানাতে চান?</strong><br>আপনার নিজের ব্র্যান্ড এবং নিজস্ব নিয়ম অনুযায়ী সম্পূর্ণ কাস্টমাইজড একটি বট তৈরি করতে আজই আমাদের সাথে যোগাযোগ করুন।</p></div><a href="https://t.me/fworker_official" target="_blank" class="action-btn"><i class="bi bi-telegram"></i> টেলিগ্রামে যোগাযোগ করুন</a></main>
-        </div>
-        <div id="settingsView" class="view">
-            <header class="app-header header-with-back"><button class="back-btn" data-view-btn="mainView"><i class="bi bi-arrow-left-circle-fill"></i></button><div class="header-title">সেটিংস</div><div style="width: 44px;"></div></header><main class="content-area" style="padding-top: 20px;"><div class="card"><h3 class="section-title">প্রোফাইল তথ্য</h3><form id="settingsForm"><div class="form-group"><label for="firstNameInput">First Name</label><input type="text" id="firstNameInput"></div><div class="form-group"><label for="lastNameInput">Last Name</label><input type="text" id="lastNameInput"></div><button type="submit" class="action-btn" style="width:100%">সেভ করুন</button></form></div></main>
-        </div>
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <a href="#" class="nav-item active" data-view-btn="mainView">
+            <i class="bi bi-house-door-fill"></i>
+            <span>হোম</span>
+        </a>
+        <a href="#" class="nav-item" data-view-btn="withdrawView">
+            <i class="bi bi-wallet2"></i>
+            <span>উত্তোলন</span>
+        </a>
+        <a href="#" class="nav-item" data-view-btn="historyView">
+            <i class="bi bi-clock-history"></i>
+            <span>ইতিহাস</span>
+        </a>
+        <a href="#" class="nav-item" data-view-btn="supportView">
+            <i class="bi bi-headset"></i>
+            <span>সাপোর্ট</span>
+        </a>
     </div>
 
     <!-- Withdrawal Policy Modal -->
@@ -369,19 +306,17 @@
             </div>
             <div class="modal-body">
                 <ul>
-                    <li><i class="bi bi-check-circle-fill"></i> উত্তোলন করতে চাইলে অবশ্যই ২০টি রেফারেল সম্পূর্ণ করতে হবে।</li>
-                    <li><i class="bi bi-check-circle-fill"></i> ২০টি রেফারেল পূর্ণ না হলে কোনো অবস্থায় টাকা উত্তোলন করা যাবে না।</li>
-                    <li><i class="bi bi-check-circle-fill"></i> উত্তোলনের টাকা শুধুমাত্র বিকাশ নম্বরে প্রদান করা হবে।</li>
+                    <li><i class="bi bi-check-circle-fill"></i> এডমিন গ্রুপ এ নোটিশ দিলে তার পর কয়েন উইড্রো করবেন তাছাড়া উইড্রো করলে পেমেন্ট পাবেন না</li>
+                   
                     <li><i class="bi bi-check-circle-fill"></i> উত্তোলন রিকোয়েস্ট করার পর অবশ্যই এডমিনের সাথে যোগাযোগ করতে হবে।</li>
                     <li><i class="bi bi-check-circle-fill"></i> শর্ত পূর্ণ হলেই টাকা প্রদান করা হবে, ইনশাল্লাহ।</li>
                 </ul>
                 <br>
-                <p><strong>📢 তাই এখনই বেশি বেশি রেফারেল করুন এবং আপনার ইনকাম উত্তোলন করুন।</strong></p>
+                <p><strong>📢 তাই এখনই বেশি বেশি রেফারেল করুন এবং আপনার ইনকাম উত্তোলন করুন。</strong></p>
             </div>
         </div>
     </div>
 
-    <button class="fab-support" data-view-btn="supportView"><i class="bi bi-headset"></i></button>
     <footer class="app-footer">
         <div class="developer-credit"><a href="https://t.me/founder_of_ceo_fworker" target="_blank"><i class="bi bi-patch-check-fill" style="color: var(--primary-color); margin-right: 5px;"></i> Developed by <strong>Hason Raja</strong></a></div>
     </footer>
@@ -390,12 +325,12 @@
         // --- CONFIGURATION ---
         const CONFIG = {
             GIGAAD_LIMIT: 50,
-            GIGAAD_REWARD: 50, // UPDATED: Halved reward
-            GIGAAD_COOLDOWN_MINUTES: 1, // Cooldown after every 3 ads
+            GIGAAD_REWARD: 100,
+            GIGAAD_COOLDOWN_MINUTES: 1,
             AUTO_AD_INTERVAL_MS: 2000,
             
             MONETAG_LIMIT_PER_SET: 3,
-            MONETAG_REWARD: 250, // UPDATED: Halved reward
+            MONETAG_REWARD: 50,
             MONETAG_AD_FUNCTION_NAME: 'show_9504240',
             MONETAG_REWARD_DELAY_MS: 15000,
             
@@ -405,27 +340,22 @@
             ADSTERRA_WAIT_MINUTES: 1,
             ADSTERRA_DIRECT_LINK: 'https://www.profitableratecpm.com/njf9v72pa?key=d54f51f2eb6b58bc76542f0996052ee9',
 
-            MIN_WITHDRAWAL_COINS: 50000,
-            BDT_PER_MIN_WITHDRAWAL: 10,
-
-            TASK_WAIT_SECONDS: 30,
-            TASK_1_REWARD: 300,
-            TASK_2_REWARD: 200,
+            MIN_WITHDRAWAL_COINS: 100,
+            BDT_PER_MIN_WITHDRAWAL: 1,
 
             COIN_NAME: 'X-Coin',
             YOUR_BOT_USERNAME: 'xerenplay_rbot',
-            TELEGRAM_BOT_TOKEN: '6342598247:AAHeMXdT0du_fgNnqbfW5JK84i5KI_1LwEY', 
-            TELEGRAM_CHAT_ID: '-1002217686942', 
+            TELEGRAM_BOT_TOKEN: '8342598247:AAHeMXdT0du_fgNnqbfW5JK84i5KI_1LwEY', 
+            TELEGRAM_CHAT_ID: '-1002417686942', 
             WITHDRAW_IMAGE_URL: 'https://i.ibb.co/PZSNq6HR/1000091003.jpg'
         };
 
         // --- STATE MANAGEMENT ---
         let state = {
             coins: 0.0,
-            gigaAd: { count: 0, lastReset: null, setCooldownUntil: null }, // UPDATED: State for new cooldown
+            gigaAd: { count: 0, lastReset: null, completedAt: null },
             monetag: { count: 0, lastReset: null },
             adsterra: { count: 0, lastViewedAt: null },
-            tasks: { task1Completed: false, task2Completed: false, lastReset: null },
             withdrawals: [],
             user: { id: null, firstName: 'Guest', lastName: 'User', joinDate: null },
             isAutoShowing: false,
@@ -448,45 +378,40 @@
 
         function mapDomElements() {
             const ids = [
-                'sideMenu', 'overlay', 'openMenuBtn', 'closeMenuBtn', 'menuNav', 
                 'userInfoProfilePic', 'userInfoName', 'userInfoId', 'joinDateDisplay', 
                 'balanceDisplay', 'withdrawBalanceDisplay', 'withdrawRequestForm',
                 'gigaAdCountDisplay', 'watchGigaAdBtn', 'autoGigaAdBtn', 'cooldownTimerDisplay', 
                 'adsterraAdBtn', 'adsterraCountDisplay', 'adsterraCooldownTimerDisplay', 
                 'watchMonetagAdBtn', 'monetagCountDisplay',
-                'exchangeViewRate',
-                'referralLink', 'copyLinkBtn', 'shareTgBtn', 
-                'settingsForm', 'firstNameInput', 'lastNameInput',
-                'task1GoBtn', 'task1ClaimBtn', 'task2GoBtn', 'task2ClaimBtn',
-                'historyListContainer', 'showPolicyBtn', 'policyModal', 'closePolicyModalBtn'
+                'historyListContainer', 'showPolicyBtn', 'policyModal', 'closePolicyModalBtn',
+                'supportBtn'
             ];
             ids.forEach(id => dom[id] = document.getElementById(id));
             dom.views = document.querySelectorAll('.view');
             dom.backBtns = document.querySelectorAll('.back-btn');
             dom.viewBtns = document.querySelectorAll('[data-view-btn]');
-            dom.fabSupport = document.querySelector('.fab-support');
+            dom.navItems = document.querySelectorAll('.nav-item');
         }
 
         function getTodayDateString() { return new Date().toISOString().slice(0, 10); }
 
         function loadState() {
             try {
-                const savedState = localStorage.getItem('XEREN_PLAY_STATE_V7'); // Version bump for new structure
+                const savedState = localStorage.getItem('XEREN_PLAY_STATE_V6');
                 if (savedState) {
                     const parsedState = JSON.parse(savedState);
-                    state = { ...state, ...parsedState }; 
+                    state = { ...state, ...parsedState };
 
                     const today = getTodayDateString();
-                    if (!state.gigaAd || state.gigaAd.lastReset !== today) state.gigaAd = { count: 0, lastReset: today, setCooldownUntil: null };
+                    if (!state.gigaAd || state.gigaAd.lastReset !== today) state.gigaAd = { count: 0, lastReset: today, completedAt: null };
                     if (!state.monetag || state.monetag.lastReset !== today) state.monetag = { count: 0, lastReset: today };
-                    if (!state.tasks || state.tasks.lastReset !== today) state.tasks = { task1Completed: false, task2Completed: false, lastReset: today };
                     if (!state.withdrawals) state.withdrawals = [];
                 }
             } catch (e) { console.error("Could not load state:", e); }
         }
 
         function saveState() { 
-            localStorage.setItem('XEREN_PLAY_STATE_V7', JSON.stringify(state)); 
+            localStorage.setItem('XEREN_PLAY_STATE_V6', JSON.stringify(state)); 
         }
 
         // --- UI & NAVIGATION ---
@@ -494,12 +419,18 @@
             dom.views.forEach(view => view.classList.remove('active'));
             const targetView = document.getElementById(viewId);
             if (targetView) { targetView.classList.add('active'); }
-            dom.menuNav.querySelectorAll('a').forEach(a => a.classList.toggle('active-nav', a.dataset.view === viewId));
+            
+            // Update navigation active state
+            dom.navItems.forEach(item => {
+                if (item.dataset.viewBtn === viewId) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+            
             if (viewId === 'historyView') renderHistory();
-            closeMenu();
         }
-        function openMenu() { dom.sideMenu.classList.add('open'); dom.overlay.classList.add('show'); }
-        function closeMenu() { dom.sideMenu.classList.remove('open'); dom.overlay.classList.remove('show'); }
 
         function updateUI() {
             dom.balanceDisplay.textContent = Math.floor(state.coins).toLocaleString();
@@ -510,25 +441,13 @@
 
             dom.gigaAdCountDisplay.textContent = `${state.gigaAd.count}/${CONFIG.GIGAAD_LIMIT}`;
             const isGigaSetCompleted = state.gigaAd.count >= CONFIG.GIGAAD_LIMIT;
-            const isGigaOnCooldown = state.gigaAd.setCooldownUntil && new Date().getTime() < state.gigaAd.setCooldownUntil;
-            dom.watchGigaAdBtn.disabled = isGigaSetCompleted || isGigaOnCooldown;
-            dom.autoGigaAdBtn.disabled = isGigaSetCompleted || isGigaOnCooldown;
+            dom.watchGigaAdBtn.disabled = isGigaSetCompleted;
+            dom.autoGigaAdBtn.disabled = isGigaSetCompleted;
             if (isGigaSetCompleted && state.isAutoShowing) toggleAutoGigaAd();
 
             dom.monetagCountDisplay.textContent = `${state.monetag.count}/${CONFIG.MONETAG_LIMIT_PER_SET}`;
             dom.watchMonetagAdBtn.disabled = state.monetag.count >= CONFIG.MONETAG_LIMIT_PER_SET;
             dom.adsterraCountDisplay.textContent = `${state.adsterra.count}/${CONFIG.ADSTERRA_LIMIT}`;
-            
-            const exchangeText = `${CONFIG.MIN_WITHDRAWAL_COINS.toLocaleString()} ${CONFIG.COIN_NAME} = <strong>${CONFIG.BDT_PER_MIN_WITHDRAWAL} BDT</strong>`;
-            dom.exchangeViewRate.innerHTML = exchangeText;
-
-            updateTaskUI('task1Completed', dom.task1ClaimBtn, dom.task1GoBtn);
-            updateTaskUI('task2Completed', dom.task2ClaimBtn, dom.task2GoBtn);
-
-            // UPDATED: Referral link format
-            if (dom.referralLink && state.user.id) dom.referralLink.value = `https://t.me/${CONFIG.YOUR_BOT_USERNAME}?start=${state.user.id}`;
-            if (dom.firstNameInput) dom.firstNameInput.value = state.user.firstName;
-            if (dom.lastNameInput) dom.lastNameInput.value = state.user.lastName;
         }
 
         // --- TELEGRAM INTEGRATION ---
@@ -554,274 +473,141 @@
         
         // --- AD LOGIC ---
         function checkAllCooldowns() { checkGigaAdCooldown(); checkAdsterraCooldown(); }
-
-        // UPDATED: GigaAd logic with 3-ad cooldown
         function handleGigaAd() {
-            if (state.gigaAd.setCooldownUntil && new Date().getTime() < state.gigaAd.setCooldownUntil) {
-                alert('পরবর্তী অ্যাডের জন্য আপনাকে কিছুক্ষণ অপেক্ষা করতে হবে।');
-                return;
-            }
             if (state.adInProgress || state.gigaAd.count >= CONFIG.GIGAAD_LIMIT) return;
-            
             state.adInProgress = true;
             dom.watchGigaAdBtn.disabled = true;
             dom.watchGigaAdBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> লোড হচ্ছে...';
             if (typeof window.showGiga !== 'function') { alert('GigaAd লোড হতে সমস্যা হয়েছে।'); finalizeGigaAdAttempt(); return; }
-
             window.showGiga().then(() => {
-                state.gigaAd.count++; 
-                state.coins += CONFIG.GIGAAD_REWARD;
-                
-                if (state.gigaAd.count % 3 === 0 && state.gigaAd.count < CONFIG.GIGAAD_LIMIT) {
-                    state.gigaAd.setCooldownUntil = new Date().getTime() + (CONFIG.GIGAAD_COOLDOWN_MINUTES * 60 * 1000);
-                    if (state.isAutoShowing) toggleAutoGigaAd();
-                    checkGigaAdCooldown();
-                } else {
-                    checkGigaAdCooldown(); // To handle the final limit reached case
-                }
+                state.gigaAd.count++; state.coins += CONFIG.GIGAAD_REWARD;
+                if (state.gigaAd.count >= CONFIG.GIGAAD_LIMIT) { state.gigaAd.completedAt = new Date().toISOString(); checkGigaAdCooldown(); }
             }).catch(e => { console.error("GigaAd failed:", e); }).finally(() => {
                 finalizeGigaAdAttempt();
-                if (state.isAutoShowing && !(state.gigaAd.setCooldownUntil && new Date().getTime() < state.gigaAd.setCooldownUntil)) {
+                if (state.isAutoShowing) {
                     if (state.gigaAd.count < CONFIG.GIGAAD_LIMIT) { setTimeout(handleGigaAd, CONFIG.AUTO_AD_INTERVAL_MS); } else { toggleAutoGigaAd(); }
                 }
             });
         }
-
         function finalizeGigaAdAttempt() {
             state.adInProgress = false; saveState(); updateUI();
             dom.watchGigaAdBtn.innerHTML = `<i class="bi bi-play-circle-fill"></i> এড দেখুন (<span id="gigaAdCountDisplay">${state.gigaAd.count}/${CONFIG.GIGAAD_LIMIT}</span>)`;
         }
-
         function toggleAutoGigaAd() {
             state.isAutoShowing = !state.isAutoShowing;
-            if (state.isAutoShowing && state.gigaAd.count < CONFIG.GIGAAD_LIMIT) {
+            if (state.isAutoShowing) {
                 dom.autoGigaAdBtn.classList.add('auto-ad-active');
-                dom.autoGigaAdBtn.innerHTML = '<i class="bi bi-stop-circle-fill"></i> অটো এড বন্ধ';
+                dom.autoGigaAdBtn.innerHTML = '<i class="bi bi-stop-circle-fill"></i> অটো বন্ধ করুন';
                 handleGigaAd();
             } else {
                 dom.autoGigaAdBtn.classList.remove('auto-ad-active');
                 dom.autoGigaAdBtn.innerHTML = '<i class="bi bi-robot"></i> অটো এড';
-                state.isAutoShowing = false;
             }
         }
-
-        // UPDATED: GigaAd cooldown checker logic
         function checkGigaAdCooldown() {
-            if (window.gigaCooldownInterval) clearInterval(window.gigaCooldownInterval);
-
-            const isLimitReached = state.gigaAd.count >= CONFIG.GIGAAD_LIMIT;
-            const now = new Date().getTime();
-            const isSetCooldownActive = state.gigaAd.setCooldownUntil && now < state.gigaAd.setCooldownUntil;
-
-            if (isLimitReached) {
-                dom.cooldownTimerDisplay.textContent = 'আজকের জন্য আপনার GigaAd লিমিট শেষ।';
-                dom.cooldownTimerDisplay.style.display = 'block';
-                dom.watchGigaAdBtn.disabled = true;
-                dom.autoGigaAdBtn.disabled = true;
-                return;
-            }
-
-            if (isSetCooldownActive) {
-                const cooldownEndTime = state.gigaAd.setCooldownUntil;
-                const updateTimer = () => {
-                    const timeLeft = cooldownEndTime - new Date().getTime();
-                    if (timeLeft <= 0) {
-                        clearInterval(window.gigaCooldownInterval);
-                        dom.cooldownTimerDisplay.style.display = 'none';
-                        state.gigaAd.setCooldownUntil = null;
-                        saveState();
-                        updateUI();
-                    } else {
-                        const m = Math.floor(timeLeft / 60000); const s = Math.floor((timeLeft % 60000) / 1000);
-                        dom.cooldownTimerDisplay.textContent = `পরবর্তী অ্যাডের জন্য অপেক্ষা করুন: ${m}মি ${s}সে`;
-                        dom.cooldownTimerDisplay.style.display = 'block';
-                        dom.watchGigaAdBtn.disabled = true; dom.autoGigaAdBtn.disabled = true;
-                    }
-                };
-                updateTimer(); window.gigaCooldownInterval = setInterval(updateTimer, 1000);
-            } else {
-                dom.cooldownTimerDisplay.style.display = 'none';
-                updateUI();
+            dom.cooldownTimerDisplay.style.display = 'none';
+            if (state.gigaAd.completedAt) {
+                const completedAt = new Date(state.gigaAd.completedAt);
+                const resetTime = new Date(completedAt.getTime() + CONFIG.GIGAAD_COOLDOWN_MINUTES * 60000);
+                if (Date.now() < resetTime.getTime()) {
+                    const timeLeft = Math.ceil((resetTime.getTime() - Date.now()) / 1000);
+                    dom.cooldownTimerDisplay.textContent = `⏳ পরবর্তী এড দেখতে ${timeLeft} সেকেন্ড অপেক্ষা করুন`;
+                    dom.cooldownTimerDisplay.style.display = 'block';
+                    setTimeout(checkGigaAdCooldown, 1000);
+                } else {
+                    const today = getTodayDateString();
+                    if (state.gigaAd.lastReset !== today) { state.gigaAd = { count: 0, lastReset: today, completedAt: null }; saveState(); updateUI(); }
+                }
             }
         }
-
         function handleMonetagAd() {
-            if (state.adInProgress || state.monetag.count >= CONFIG.MONETAG_LIMIT_PER_SET) return;
-            state.adInProgress = true; dom.watchMonetagAdBtn.disabled = true; dom.watchMonetagAdBtn.innerHTML = 'লোড হচ্ছে...';
-            try {
-                if (typeof window[CONFIG.MONETAG_AD_FUNCTION_NAME] === 'function') {
-                    window[CONFIG.MONETAG_AD_FUNCTION_NAME]();
-                    setTimeout(() => {
-                        state.monetag.count++; state.coins += CONFIG.MONETAG_REWARD;
-                        state.adInProgress = false; saveState(); updateUI();
-                        dom.watchMonetagAdBtn.innerHTML = 'দেখুন';
-                        alert(`অভিনন্দন! আপনি ${CONFIG.MONETAG_REWARD} কয়েন পেয়েছেন।`);
-                    }, CONFIG.MONETAG_REWARD_DELAY_MS);
-                } else { throw new Error("Monetag function not found."); }
-            } catch (error) { state.adInProgress = false; updateUI(); dom.watchMonetagAdBtn.innerHTML = 'দেখুন'; alert('Monetag বিজ্ঞাপন দেখাতে সমস্যা হয়েছে।'); }
+            if (state.monetag.count >= CONFIG.MONETAG_LIMIT_PER_SET) return;
+            if (typeof window[CONFIG.MONETAG_AD_FUNCTION_NAME] !== 'function') { alert('Monetag Ad লোড হতে সমস্যা হয়েছে।'); return; }
+            state.monetag.count++; saveState(); updateUI();
+            window[CONFIG.MONETAG_AD_FUNCTION_NAME]();
+            setTimeout(() => { state.coins += CONFIG.MONETAG_REWARD; saveState(); updateUI(); }, CONFIG.MONETAG_REWARD_DELAY_MS);
         }
         function handleAdsterraAd() {
-            if (state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) { alert("আপনি আজকের জন্য সব Adsterra অ্যাড দেখে ফেলেছেন।"); return; }
-            const now = new Date().getTime();
-            if (state.adsterra.lastViewedAt) {
-                const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
-                if (now < cooldownEndTime) { alert("পরবর্তী Adsterra অ্যাডের জন্য আপনাকে অপেক্ষা করতে হবে।"); return; }
-            }
-            dom.adsterraAdBtn.disabled = true; window.open(CONFIG.ADSTERRA_DIRECT_LINK, '_blank');
-            alert(`আপনি ${CONFIG.ADSTERRA_WAIT_MINUTES} মিনিট পর পুরস্কার পাবেন। পেজটি খোলা রাখুন।`);
-            setTimeout(() => {
-                state.adsterra.count++; state.adsterra.lastViewedAt = new Date().toISOString();
-                state.coins += CONFIG.ADSTERRA_REWARD; saveState(); updateUI(); checkAdsterraCooldown();
-                alert(`অভিনন্দন! Adsterra অ্যাড থেকে আপনি ${CONFIG.ADSTERRA_REWARD} কয়েন পেয়েছেন।`);
-            }, CONFIG.ADSTERRA_WAIT_MINUTES * 60 * 1000);
+            if (state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) return;
+            state.adsterra.count++; state.adsterra.lastViewedAt = new Date().toISOString();
+            saveState(); updateUI();
+            window.open(CONFIG.ADSTERRA_DIRECT_LINK, '_blank');
+            setTimeout(() => { state.coins += CONFIG.ADSTERRA_REWARD; saveState(); updateUI(); }, 60000);
         }
         function checkAdsterraCooldown() {
-            if (window.adsterraCooldownInterval) clearInterval(window.adsterraCooldownInterval);
-            if (state.adsterra.count === 0 || !state.adsterra.lastViewedAt || state.adsterra.count >= CONFIG.ADSTERRA_LIMIT) {
-                dom.adsterraCooldownTimerDisplay.style.display = 'none'; dom.adsterraAdBtn.disabled = state.adsterra.count >= CONFIG.ADSTERRA_LIMIT; return;
-            }
-            const cooldownEndTime = new Date(state.adsterra.lastViewedAt).getTime() + (CONFIG.ADSTERRA_COOLDOWN_HOURS * 60 * 60 * 1000);
-            const updateTimer = () => {
-                const timeLeft = cooldownEndTime - new Date().getTime();
-                if (timeLeft <= 0) {
-                    clearInterval(window.adsterraCooldownInterval); dom.adsterraCooldownTimerDisplay.style.display = 'none'; dom.adsterraAdBtn.disabled = false; updateUI();
-                } else {
-                    const h = Math.floor(timeLeft / 3600000), m = Math.floor((timeLeft % 3600000) / 60000), s = Math.floor((timeLeft % 60000) / 1000);
-                    dom.adsterraCooldownTimerDisplay.textContent = `Adsterra অ্যাডের জন্য অপেক্ষা করুন: ${h}ঘন্টা ${m}মি ${s}সে`;
-                    dom.adsterraCooldownTimerDisplay.style.display = 'block'; dom.adsterraAdBtn.disabled = true;
+            dom.adsterraCooldownTimerDisplay.style.display = 'none';
+            if (state.adsterra.lastViewedAt) {
+                const lastViewedAt = new Date(state.adsterra.lastViewedAt);
+                const resetTime = new Date(lastViewedAt.getTime() + CONFIG.ADSTERRA_COOLDOWN_HOURS * 3600000);
+                if (Date.now() < resetTime.getTime()) {
+                    const hoursLeft = ((resetTime.getTime() - Date.now()) / 3600000).toFixed(1);
+                    dom.adsterraCooldownTimerDisplay.textContent = `⏳ পরবর্তী Adsterra Ad দেখতে ${hoursLeft} ঘন্টা অপেক্ষা করুন`;
+                    dom.adsterraCooldownTimerDisplay.style.display = 'block';
+                    setTimeout(checkAdsterraCooldown, 60000);
                 }
-            };
-            updateTimer(); window.adsterraCooldownInterval = setInterval(updateTimer, 1000);
-        }
-
-        // --- TASKS LOGIC ---
-        function startTaskTimer(claimButton) {
-            let timeLeft = CONFIG.TASK_WAIT_SECONDS;
-            claimButton.disabled = true;
-            claimButton.innerHTML = `<i class="bi bi-hourglass-split"></i> ${timeLeft}s`;
-            const timerInterval = setInterval(() => {
-                timeLeft--;
-                claimButton.innerHTML = `<i class="bi bi-hourglass-split"></i> ${timeLeft}s`;
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    claimButton.disabled = false;
-                    claimButton.innerHTML = '<i class="bi bi-check-circle-fill"></i> Claim';
-                }
-            }, 1000);
-        }
-        function claimTaskReward(taskKey, reward) {
-            if (state.tasks[taskKey]) return;
-            state.tasks[taskKey] = true;
-            state.coins += reward;
-            saveState();
-            updateUI();
-            alert(`অভিনন্দন! টাস্ক থেকে আপনি ${reward} কয়েন পেয়েছেন।`);
-        }
-        function updateTaskUI(taskKey, claimBtn, goBtn) {
-            const isCompleted = state.tasks[taskKey];
-            if (isCompleted) {
-                claimBtn.disabled = true;
-                goBtn.style.pointerEvents = "none";
-                goBtn.style.opacity = "0.6";
-                claimBtn.innerHTML = '<i class="bi bi-patch-check-fill"></i> Done';
-            } else {
-                claimBtn.disabled = true;
-                goBtn.style.pointerEvents = "auto";
-                goBtn.style.opacity = "1";
-                claimBtn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Claim';
             }
         }
 
-        // --- WITHDRAWAL & OTHER LOGIC ---
-        async function handleWithdraw(e) {
+        // --- WITHDRAWAL ---
+        function handleWithdrawRequest(e) {
             e.preventDefault();
-            const form = e.target, amount = parseFloat(form.amount.value), method = form.paymentMethod.value, number = form.accountNumber.value;
-            if (isNaN(amount) || amount <= 0) { alert("সঠিক পরিমাণ লিখুন।"); return; }
-            if (amount < CONFIG.MIN_WITHDRAWAL_COINS) { alert(`সর্বনিম্ন ${CONFIG.MIN_WITHDRAWAL_COINS.toLocaleString()} কয়েন উত্তোলন করা যাবে।`); return; }
-            if (amount > state.coins) { alert("আপনার অ্যাকাউন্টে পর্যাপ্ত কয়েন নেই।"); return; }
-            if (number.length < 11) { alert("সঠিক অ্যাকাউন্ট নম্বর দিন।"); return; }
-            
-            const newWithdrawal = {
-                id: Date.now(),
-                amount,
-                method,
-                number,
-                date: new Date().toLocaleString('bn-BD'),
-                status: 'Pending'
-            };
-            
-            const isSent = await sendWithdrawalToTelegram(newWithdrawal);
-            if (!isSent) { alert("আপনার অনুরোধটি পাঠাতে সমস্যা হয়েছে। এডমিনের সাথে যোগাযোগ করুন।"); return; }
-            
-            state.coins -= amount;
-            state.withdrawals.unshift(newWithdrawal);
-            saveState();
-            updateUI();
-            form.reset();
-            alert("আপনার উইথড্র অনুরোধ সফলভাবে জমা হয়েছে।");
-            showView('historyView');
-        }
-
-        async function sendWithdrawalToTelegram(data) {
-            // This function remains unchanged as it was not part of the request.
-            // You can implement the actual sending logic here if needed.
-            // For now, it will return true to simulate success.
-            console.log("Simulating sending withdrawal to Telegram:", data);
-            return true;
-        }
-        
-        function renderHistory() {
-            dom.historyListContainer.innerHTML = '';
-            if (state.withdrawals.length === 0) {
-                dom.historyListContainer.innerHTML = `<div class="no-history">
-                    <i class="bi bi-folder-x" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                    <p>এখনো কোনো লেনদেন হয়নি।</p>
-                </div>`;
+            const amount = parseInt(document.getElementById('amount').value);
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const accountNumber = document.getElementById('accountNumber').value;
+            if (amount < CONFIG.MIN_WITHDRAWAL_COINS) {
+                alert(`সর্বনিম্ন উত্তোলন ${CONFIG.MIN_WITHDRAWAL_COINS} কয়েন`);
                 return;
             }
-            state.withdrawals.forEach(item => {
-                const historyElement = document.createElement('div');
-                historyElement.className = 'history-item';
-                historyElement.innerHTML = `
-                    <div class="details">
-                        <div class="amount">${item.amount.toLocaleString()} ${CONFIG.COIN_NAME}</div>
-                        <div class="info">${item.method} - ${item.number} | ${item.date}</div>
-                    </div>
-                    <div class="status pending">${item.status}</div>`;
-                dom.historyListContainer.appendChild(historyElement);
-            });
+            if (state.coins < amount) {
+                alert('আপনার ব্যালেন্স অপর্যাপ্ত');
+                return;
+            }
+            const withdrawal = {
+                id: Date.now(),
+                amount,
+                paymentMethod,
+                accountNumber,
+                status: 'pending',
+                date: new Date().toISOString(),
+                bdtAmount: Math.floor((amount / CONFIG.MIN_WITHDRAWAL_COINS) * CONFIG.BDT_PER_MIN_WITHDRAWAL)
+            };
+            state.withdrawals.unshift(withdrawal);
+            state.coins -= amount;
+            saveState(); updateUI();
+            alert('✅ আপনার উত্তোলন রিকোয়েস্ট সাবমিট হয়েছে। এডমিনের সাথে যোগাযোগ করুন।');
+            document.getElementById('withdrawRequestForm').reset();
+            showView('historyView');
         }
-        
+        function renderHistory() {
+            if (!state.withdrawals || state.withdrawals.length === 0) {
+                dom.historyListContainer.innerHTML = `<div class="no-history"><i class="bi bi-inbox" style="font-size: 3rem;"></i><p>কোনো উত্তোলনের ইতিহাস নেই</p></div>`;
+                return;
+            }
+            dom.historyListContainer.innerHTML = state.withdrawals.map(withdrawal => `
+                <div class="history-item">
+                    <div class="details">
+                        <div class="amount">${withdrawal.amount.toLocaleString()} ${CONFIG.COIN_NAME}</div>
+                        <div class="info">${withdrawal.paymentMethod} - ${withdrawal.accountNumber} | ${new Date(withdrawal.date).toLocaleDateString('en-GB')}</div>
+                    </div>
+                    <div class="status ${withdrawal.status}">${withdrawal.status === 'pending' ? '⏳ রিকোয়েস্ট পাঠানো হয়েছে' : '✅ সম্পূর্ণ'}</div>
+                </div>
+            `).join('');
+        }
+
         // --- EVENT LISTENERS ---
         function attachEventListeners() {
-            dom.openMenuBtn.addEventListener('click', openMenu); dom.closeMenuBtn.addEventListener('click', closeMenu);
-            dom.overlay.addEventListener('click', closeMenu);
-            dom.viewBtns.forEach(btn => btn.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn)));
-            dom.backBtns.forEach(btn => btn.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn)));
-            dom.menuNav.querySelectorAll('a').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); if (e.currentTarget.dataset.view) showView(e.currentTarget.dataset.view); }); });
-            if (dom.fabSupport) dom.fabSupport.addEventListener('click', (e) => showView(e.currentTarget.dataset.viewBtn));
-
             dom.watchGigaAdBtn.addEventListener('click', handleGigaAd);
             dom.autoGigaAdBtn.addEventListener('click', toggleAutoGigaAd);
             dom.watchMonetagAdBtn.addEventListener('click', handleMonetagAd);
             dom.adsterraAdBtn.addEventListener('click', handleAdsterraAd);
-            
-            dom.withdrawRequestForm.addEventListener('submit', handleWithdraw);
-            dom.settingsForm.addEventListener('submit', (e) => { e.preventDefault(); state.user.firstName = dom.firstNameInput.value.trim(); state.user.lastName = dom.lastNameInput.value.trim(); saveState(); updateUI(); alert("প্রোফাইল আপডেট হয়েছে।"); showView('mainView'); });
-            dom.copyLinkBtn.addEventListener('click', () => { navigator.clipboard.writeText(dom.referralLink.value).then(() => alert("লিঙ্ক কপি করা হয়েছে!"), () => alert("কপি করতে সমস্যা হয়েছে।")); });
-            dom.shareTgBtn.addEventListener('click', () => { const text = encodeURIComponent(`আমার রেফারেল লিঙ্ক থেকে জয়েন করে আয় করুন:`); const url = encodeURIComponent(dom.referralLink.value); window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank'); });
-
-            dom.task1GoBtn.addEventListener('click', () => startTaskTimer(dom.task1ClaimBtn));
-            dom.task2GoBtn.addEventListener('click', () => startTaskTimer(dom.task2ClaimBtn));
-            dom.task1ClaimBtn.addEventListener('click', () => claimTaskReward('task1Completed', CONFIG.TASK_1_REWARD));
-            dom.task2ClaimBtn.addEventListener('click', () => claimTaskReward('task2Completed', CONFIG.TASK_2_REWARD));
-            
-            dom.showPolicyBtn.addEventListener('click', () => dom.policyModal.classList.add('show'));
-            dom.closePolicyModalBtn.addEventListener('click', () => dom.policyModal.classList.remove('show'));
+            dom.withdrawRequestForm.addEventListener('submit', handleWithdrawRequest);
+            dom.showPolicyBtn.addEventListener('click', () => { dom.policyModal.classList.add('show'); });
+            dom.closePolicyModalBtn.addEventListener('click', () => { dom.policyModal.classList.remove('show'); });
             dom.policyModal.addEventListener('click', (e) => { if (e.target === dom.policyModal) dom.policyModal.classList.remove('show'); });
+            dom.viewBtns.forEach(btn => { btn.addEventListener('click', (e) => { e.preventDefault(); showView(btn.dataset.viewBtn); }); });
         }
     </script>
 </body>
 </html>
-<script async="async" data-cfasync="false" src="//pl26372025.profitableratecpm.com/b7611652d6af11cf1180d86165832913/invoke.js"></script>
+<script async="async" data-cfasync="false" src="//pl26372025.revenuecpmgate.com/b7611652d6af11cf1180d86165832913/invoke.js"></script>
 <div id="container-b7611652d6af11cf1180d86165832913"></div>
